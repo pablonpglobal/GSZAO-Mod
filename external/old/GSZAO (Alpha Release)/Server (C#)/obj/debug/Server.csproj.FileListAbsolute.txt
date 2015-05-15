@@ -1,0 +1,10 @@
+C:\Documents and Settings\Administrador\Escritorio\Server\Server\bin\Debug\Server.exe
+C:\Documents and Settings\Administrador\Escritorio\Server\Server\bin\Debug\Server.pdb
+C:\Documents and Settings\Administrador\Escritorio\Server\Server\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Administrador\Escritorio\Server\Server\obj\Debug\Server.exe
+C:\Documents and Settings\Administrador\Escritorio\Server\Server\obj\Debug\Server.pdb
+C:\Documents and Settings\Administrador\Escritorio\Server\obj\Debug\Server.exe
+C:\Documents and Settings\Administrador\Escritorio\Server\obj\Debug\Server.pdb
+C:\Documents and Settings\Administrador\Escritorio\Server\bin\Debug\Server.exe
+C:\Documents and Settings\Administrador\Escritorio\Server\bin\Debug\Server.pdb
+C:\Documents and Settings\Administrador\Escritorio\Server\obj\Debug\ResolveAssemblyReference.cache
