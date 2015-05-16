@@ -278,18 +278,18 @@ End Sub
 Private Sub Form_Load()
 'Cargamos la interfase
 Me.Picture = LoadPicture(App.path & "\Graficos\comerciar.jpg")
-Image1(0).Picture = LoadPicture(App.path & "\Graficos\BotónComprar.jpg")
-Image1(1).Picture = LoadPicture(App.path & "\Graficos\Botónvender.jpg")
+Image1(0).Picture = LoadPicture(App.path & "\Graficos\BotonComprar.jpg")
+Image1(1).Picture = LoadPicture(App.path & "\Graficos\Botonvender.jpg")
 
 End Sub
 
-Private Sub Form_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub Form_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
 If Image1(0).Tag = 0 Then
-    Image1(0).Picture = LoadPicture(App.path & "\Graficos\BotónComprar.jpg")
+    Image1(0).Picture = LoadPicture(App.path & "\Graficos\BotonComprar.jpg")
     Image1(0).Tag = 1
 End If
 If Image1(1).Tag = 0 Then
-    Image1(1).Picture = LoadPicture(App.path & "\Graficos\Botónvender.jpg")
+    Image1(1).Picture = LoadPicture(App.path & "\Graficos\Botonvender.jpg")
     Image1(1).Tag = 1
 End If
 End Sub
@@ -366,21 +366,21 @@ End Select
 
 End Sub
 
-Private Sub Image1_MouseMove(index As Integer, Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub Image1_MouseMove(index As Integer, Button As Integer, Shift As Integer, x As Single, y As Single)
 Select Case index
     Case 0
         If Image1(0).Tag = 1 Then
-                Image1(0).Picture = LoadPicture(App.path & "\Graficos\BotónComprarApretado.jpg")
+                Image1(0).Picture = LoadPicture(App.path & "\Graficos\BotonComprarApretado.jpg")
                 Image1(0).Tag = 0
-                Image1(1).Picture = LoadPicture(App.path & "\Graficos\Botónvender.jpg")
+                Image1(1).Picture = LoadPicture(App.path & "\Graficos\Botonvender.jpg")
                 Image1(1).Tag = 1
         End If
         
     Case 1
         If Image1(1).Tag = 1 Then
-                Image1(1).Picture = LoadPicture(App.path & "\Graficos\Botónvenderapretado.jpg")
+                Image1(1).Picture = LoadPicture(App.path & "\Graficos\Botonvenderapretado.jpg")
                 Image1(1).Tag = 0
-                Image1(0).Picture = LoadPicture(App.path & "\Graficos\BotónComprar.jpg")
+                Image1(0).Picture = LoadPicture(App.path & "\Graficos\BotonComprar.jpg")
                 Image1(0).Tag = 1
         End If
         
@@ -388,7 +388,7 @@ End Select
 End Sub
 
 Private Sub list1_Click(index As Integer)
-Dim SR As Rect, DR As Rect
+Dim SR As RECT, DR As RECT
 
 SR.Left = 0
 SR.Top = 0
@@ -472,13 +472,13 @@ End Sub
 '<-------------------------NUEVO-------------------------->
 '<-------------------------NUEVO-------------------------->
 '<-------------------------NUEVO-------------------------->
-Private Sub List1_MouseMove(index As Integer, Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub List1_MouseMove(index As Integer, Button As Integer, Shift As Integer, x As Single, y As Single)
 If Image1(0).Tag = 0 Then
-    Image1(0).Picture = LoadPicture(App.path & "\Graficos\BotónComprar.jpg")
+    Image1(0).Picture = LoadPicture(App.path & "\Graficos\BotonComprar.jpg")
     Image1(0).Tag = 1
 End If
 If Image1(1).Tag = 0 Then
-    Image1(1).Picture = LoadPicture(App.path & "\Graficos\Botónvender.jpg")
+    Image1(1).Picture = LoadPicture(App.path & "\Graficos\Botonvender.jpg")
     Image1(1).Tag = 1
 End If
 End Sub

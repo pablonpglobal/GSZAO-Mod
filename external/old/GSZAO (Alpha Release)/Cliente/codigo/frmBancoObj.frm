@@ -316,8 +316,8 @@ End Sub
 Private Sub Form_Load()
 'Cargamos la interfase
 Me.Picture = LoadPicture(App.path & "\Graficos\comerciar.jpg")
-Image1(0).Picture = LoadPicture(App.path & "\Graficos\BotónComprar.jpg")
-Image1(1).Picture = LoadPicture(App.path & "\Graficos\Botónvender.jpg")
+Image1(0).Picture = LoadPicture(App.path & "\Graficos\BotonComprar.jpg")
+Image1(1).Picture = LoadPicture(App.path & "\Graficos\Botonvender.jpg")
 
 CmdMoverBov(1).Picture = LoadPicture(App.path & "\Graficos\FlechaSubirObjeto.jpg")
 CmdMoverBov(0).Picture = LoadPicture(App.path & "\Graficos\FlechaBajarObjeto.jpg")
@@ -326,11 +326,11 @@ End Sub
 
 Private Sub Form_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
 If Image1(0).Tag = 0 Then
-    Image1(0).Picture = LoadPicture(App.path & "\Graficos\BotónComprar.jpg")
+    Image1(0).Picture = LoadPicture(App.path & "\Graficos\BotonComprar.jpg")
     Image1(0).Tag = 1
 End If
 If Image1(1).Tag = 0 Then
-    Image1(1).Picture = LoadPicture(App.path & "\Graficos\Botónvender.jpg")
+    Image1(1).Picture = LoadPicture(App.path & "\Graficos\Botonvender.jpg")
     Image1(1).Tag = 1
 End If
 End Sub
@@ -363,17 +363,17 @@ Private Sub Image1_MouseMove(index As Integer, Button As Integer, Shift As Integ
 Select Case index
     Case 0
         If Image1(0).Tag = 1 Then
-                Image1(0).Picture = LoadPicture(App.path & "\Graficos\BotónComprarApretado.jpg")
+                Image1(0).Picture = LoadPicture(App.path & "\Graficos\BotonComprarApretado.jpg")
                 Image1(0).Tag = 0
-                Image1(1).Picture = LoadPicture(App.path & "\Graficos\Botónvender.jpg")
+                Image1(1).Picture = LoadPicture(App.path & "\Graficos\Botonvender.jpg")
                 Image1(1).Tag = 1
         End If
         
     Case 1
         If Image1(1).Tag = 1 Then
-                Image1(1).Picture = LoadPicture(App.path & "\Graficos\Botónvenderapretado.jpg")
+                Image1(1).Picture = LoadPicture(App.path & "\Graficos\Botonvenderapretado.jpg")
                 Image1(1).Tag = 0
-                Image1(0).Picture = LoadPicture(App.path & "\Graficos\BotónComprar.jpg")
+                Image1(0).Picture = LoadPicture(App.path & "\Graficos\BotonComprar.jpg")
                 Image1(0).Tag = 1
         End If
         
@@ -402,7 +402,7 @@ Select Case index
         End Select
         
         If UserBancoInventory(List1(0).ListIndex + 1).Amount <> 0 Then _
-            Engine.Graphics_Draw_GrhToHdc Picture1.hdc, UserBancoInventory(List1(0).ListIndex + 1).grhIndex
+            Engine.Graphics_Draw_GrhToHdc Picture1.hdc, UserBancoInventory(List1(0).ListIndex + 1).GrhIndex
     Case 1
         Label1(0).Caption = Inventario.ItemName(List1(1).ListIndex + 1)
         Label1(2).Caption = Inventario.Amount(List1(1).ListIndex + 1)
@@ -422,7 +422,7 @@ Select Case index
         End Select
         
         If Inventario.Amount(List1(1).ListIndex + 1) <> 0 Then _
-            Engine.Graphics_Draw_GrhToHdc Picture1.hdc, Inventario.grhIndex(List1(1).ListIndex + 1)
+            Engine.Graphics_Draw_GrhToHdc Picture1.hdc, Inventario.GrhIndex(List1(1).ListIndex + 1)
 End Select
 
 If Label1(2).Caption = 0 Then ' 27/08/2006 - GS > No mostrar imagen ni nada, cuando no ahi nada que mostrar.
@@ -440,11 +440,11 @@ End Sub
 '<-------------------------NUEVO-------------------------->
 Private Sub List1_MouseMove(index As Integer, Button As Integer, Shift As Integer, x As Single, y As Single)
 If Image1(0).Tag = 0 Then
-    Image1(0).Picture = LoadPicture(App.path & "\Graficos\BotónComprar.jpg")
+    Image1(0).Picture = LoadPicture(App.path & "\Graficos\BotonComprar.jpg")
     Image1(0).Tag = 1
 End If
 If Image1(1).Tag = 0 Then
-    Image1(1).Picture = LoadPicture(App.path & "\Graficos\Botónvender.jpg")
+    Image1(1).Picture = LoadPicture(App.path & "\Graficos\Botonvender.jpg")
     Image1(1).Tag = 1
 End If
 End Sub
