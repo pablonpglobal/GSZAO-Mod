@@ -1256,7 +1256,7 @@ If (index And &H1) = 0 Then
         If indice > NUMSKILLS Then indice = NUMSKILLS
         If Val(Text1(indice).Caption) < MAXSKILLPOINTS Then
             Text1(indice).Caption = Val(Text1(indice).Caption) + 1
-            flags(indice) = flags(indice) + 1
+            Flags(indice) = Flags(indice) + 1
             Alocados = Alocados - 1
         End If
             
@@ -1265,9 +1265,9 @@ Else
     If Alocados < SkillPoints Then
         
         indice = index \ 2 + 1
-        If Val(Text1(indice).Caption) > 0 And flags(indice) > 0 Then
+        If Val(Text1(indice).Caption) > 0 And Flags(indice) > 0 Then
             Text1(indice).Caption = Val(Text1(indice).Caption) - 1
-            flags(indice) = flags(indice) - 1
+            Flags(indice) = Flags(indice) - 1
             Alocados = Alocados + 1
         End If
     End If
@@ -1278,7 +1278,7 @@ End Sub
 
 Private Sub Form_Load()
 
-Image1.Picture = LoadPicture(App.path & "\Graficos\Botónok.jpg")
+Image1.Picture = LoadPicture(App.path & "\Graficos\Botonok.jpg")
 
 
 'Nombres de los skills
@@ -1294,15 +1294,15 @@ Next
 i = 0
 
 'Flags para saber que skills se modificaron
-ReDim flags(1 To NUMSKILLS)
+ReDim Flags(1 To NUMSKILLS)
 
 
 'Cargamos el jpg correspondiente
 For i = 0 To NUMSKILLS * 2 - 1
     If (i And &H1) = 0 Then
-        Command1(i).Picture = LoadPicture(App.path & "\Graficos\BotónMás.jpg")
+        Command1(i).Picture = LoadPicture(App.path & "\Graficos\BotonMas.jpg")
     Else
-        Command1(i).Picture = LoadPicture(App.path & "\Graficos\BotónMenos.jpg")
+        Command1(i).Picture = LoadPicture(App.path & "\Graficos\BotonMenos.jpg")
     End If
 Next
 
