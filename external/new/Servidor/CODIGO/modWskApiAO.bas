@@ -24,7 +24,7 @@ Option Explicit
 ' Modulo para manejar Winsock
 '
 
-#If UsarQueSocket = 1 Then
+#If SocketType = 1 Then
 
 
 'Si la variable esta en TRUE , al iniciar el WsApi se crea
@@ -86,7 +86,7 @@ Public LastSockListen As Long ' GSZAO
 
 
 Public Sub IniciaWsApi(ByVal hwndParent As Long)
-#If UsarQueSocket = 1 Then
+#If SocketType = 1 Then
 
 Call LogApiSock("IniciaWsApi")
 Debug.Print "IniciaWsApi"
@@ -107,7 +107,7 @@ Call StartWinsock(desc)
 End Sub
 
 Public Sub LimpiaWsApi()
-#If UsarQueSocket = 1 Then
+#If SocketType = 1 Then
 
 Call LogApiSock("LimpiaWsApi")
 
@@ -130,7 +130,7 @@ End If
 End Sub
 
 Public Function BuscaSlotSock(ByVal S As Long) As Long
-#If UsarQueSocket = 1 Then
+#If SocketType = 1 Then
 On Error GoTo hayerror
     
     If WSAPISock2Usr.Count <> 0 Then ' GSZAO
@@ -149,7 +149,7 @@ End Function
 
 Public Sub AgregaSlotSock(ByVal Sock As Long, ByVal Slot As Long)
 Debug.Print "AgregaSockSlot"
-#If (UsarQueSocket = 1) Then
+#If (SocketType = 1) Then
 
     If WSAPISock2Usr.Count > iniMaxUsuarios Then
         Call CloseSocket(Slot)
@@ -189,10 +189,10 @@ Debug.Print "AgregaSockSlot"
     'WSAPISockChacheCant = WSAPISockChacheCant + 1
     
     #End If
-    End Sub
+End Sub
     
-    Public Sub BorraSlotSock(ByVal Sock As Long)
-    #If (UsarQueSocket = 1) Then
+Public Sub BorraSlotSock(ByVal Sock As Long)
+    #If (SocketType = 1) Then
         Dim cant As Long
         
         cant = WSAPISock2Usr.Count
@@ -200,14 +200,13 @@ Debug.Print "AgregaSockSlot"
         WSAPISock2Usr.Remove CStr(Sock)
         
         Debug.Print "BorraSockSlot " & cant & " -> " & WSAPISock2Usr.Count
-
-#End If
+    #End If
 End Sub
 
 
 
 Public Function WndProc(ByVal hWnd As Long, ByVal msg As Long, ByVal wParam As Long, ByVal lParam As Long) As Long
-#If UsarQueSocket = 1 Then
+#If SocketType = 1 Then
 
 On Error Resume Next
 
@@ -318,7 +317,7 @@ End Function
 'Retorna 0 cuando se envió o se metio en la cola,
 'retorna <> 0 cuando no se pudo enviar o no se pudo meter en la cola
 Public Function WsApiEnviar(ByVal Slot As Integer, ByRef str As String) As Long
-#If UsarQueSocket = 1 Then
+#If SocketType = 1 Then
     Dim ret As String
     Dim Retorno As Long
     Dim data() As Byte
@@ -350,7 +349,7 @@ Public Function WsApiEnviar(ByVal Slot As Integer, ByRef str As String) As Long
 End Function
 
 Public Sub LogApiSock(ByVal str As String)
-#If (UsarQueSocket = 1) Then
+#If (SocketType = 1) Then
 
 On Error GoTo ErrHandler
 
@@ -369,7 +368,7 @@ End Sub
 
 Public Sub EventoSockAccept(ByVal SockID As Long)
 'Last Modification: 09/06/2012 - ^[GS]^
-#If UsarQueSocket = 1 Then
+#If SocketType = 1 Then
 '==========================================================
 'USO DE LA API DE WINSOCK
 '========================
@@ -505,7 +504,7 @@ Public Sub EventoSockAccept(ByVal SockID As Long)
 End Sub
 
 Public Sub EventoSockRead(ByVal Slot As Integer, ByRef Datos() As Byte)
-#If UsarQueSocket = 1 Then
+#If SocketType = 1 Then
 
 With UserList(Slot)
        
@@ -523,7 +522,7 @@ End Sub
 
 Public Sub EventoSockClose(ByVal Slot As Integer)
 'Last Modification: 10/08/2011 - ^[GS]^
-#If UsarQueSocket = 1 Then
+#If SocketType = 1 Then
 
     'Es el mismo user al que está revisando el centinela??
     'Si estamos acá es porque se cerró la conexión, no es un /salir, y no queremos banearlo....
@@ -545,7 +544,7 @@ End Sub
 
 
 Public Sub WSApiReiniciarSockets()
-#If UsarQueSocket = 1 Then
+#If SocketType = 1 Then
 Dim i As Long
     'Cierra el socket de escucha
     If SockListen >= 0 Then Call apiclosesocket(SockListen)
@@ -587,7 +586,7 @@ Dim i As Long
 End Sub
 
 Public Sub WSApiCloseSocket(ByVal Socket As Long)
-    #If UsarQueSocket = 1 Then
+    #If SocketType = 1 Then
         Call WSAAsyncSelect(Socket, hWndMsg, ByVal 1025, ByVal (FD_CLOSE))
         Call ShutDown(Socket, SD_BOTH)
     #End If

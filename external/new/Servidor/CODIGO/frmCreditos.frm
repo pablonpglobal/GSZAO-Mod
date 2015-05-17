@@ -158,7 +158,7 @@ Private Sub cCodigo_Click()
 End Sub
 
 Private Sub Form_Load()
-On Error Resume Next
+'on error resume next
     ' Handles Form movement (drag and drop).
     Set clsFormulario = New clsFormMovementManager
     clsFormulario.Initialize Me
@@ -189,7 +189,7 @@ End Sub
 
 
 Private Sub StartCredits()
-On Error Resume Next
+'on error resume next
 Dim FileO       As Integer
 Dim FileName    As String
 Dim tmp         As String
@@ -296,7 +296,7 @@ Private Sub picCredits_Click()
 End Sub
 
 Private Sub Timer1_Timer()
-On Error Resume Next
+'on error resume next
 Dim Ycurr       As Long
 Dim textLine    As Integer
 Dim ColPrct     As Long

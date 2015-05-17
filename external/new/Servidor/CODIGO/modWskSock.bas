@@ -18,7 +18,7 @@ Attribute VB_Name = "modWskSock"
 'along with this program; if not, you can find it at http://www.affero.org/oagpl.html
 '**************************************************************************
 
-#If UsarQueSocket = 1 Then
+#If SocketType = 1 Then
 
 'date stamp: sept 1, 1996 (for version control, please don't remove)
 

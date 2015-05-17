@@ -1,7 +1,7 @@
 Type=Exe
-Reference=*\G{00000200-0000-0010-8000-00AA006D2EA4}#2.0#0#C:\Program Files (x86)\Common Files\System\ado\msado20.tlb#Microsoft ActiveX Data Objects 2.0 Library
+Reference=*\G{00000200-0000-0010-8000-00AA006D2EA4}#2.0#0#C:\Program Files (x86)\Common Files\system\ado\msado20.tlb#Microsoft ActiveX Data Objects 2.0 Library
 Reference=*\G{00025E01-0000-0000-C000-000000000046}#4.0#0#C:\Program Files (x86)\Common Files\Microsoft Shared\DAO\DAO350.DLL#Microsoft DAO 3.51 Object Library
-Object={48E59290-9880-11CF-9754-00AA00C00908}#1.0#0; msinet.ocx
+Object={48E59290-9880-11CF-9754-00AA00C00908}#1.0#0; MSINET.OCX
 Module=modAcciones; Codigo\modAcciones.bas
 Module=modAdmin; Codigo\modAdmin.bas
 Module=modNPCsAI; Codigo\modNPCsAI.bas
@@ -61,13 +61,13 @@ Class=clsIniManager; Codigo\clsIniManager.cls
 Module=modUserRecords; CODIGO\modUserRecords.bas
 Class=clsClanPretoriano; CODIGO\clsClanPretoriano.cls
 Module=modMySQL; CODIGO\modMySQL.bas
-Object={831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0; mscomctl.OCX
 Class=clsByteBuffer; CODIGO\clsByteBuffer.cls
 Module=modWorldGrid; CODIGO\modWorldGrid.bas
 Class=clsMundo; CODIGO\clsMundo.cls
 Class=clsLimpiarMundo; CODIGO\clsLimpiarMundo.cls
 Module=modEventoTorneo; CODIGO\modEventoTorneo.bas
 Module=modQuests; CODIGO\modQuests.bas
+Object={831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0; MSCOMCTL.OCX
 IconForm="frmMain"
 Startup="Sub Main"
 HelpFile=""
@@ -86,7 +86,7 @@ ServerSupportFiles=0
 VersionCompanyName="http://www.gs-zone.org"
 VersionLegalCopyright="Argentum Online is copyright of Pablo Ignacio Marquez"
 VersionProductName="GS-Z Argentum Online Mod"
-CondComp="UsarQueSocket = 1 : ConUpTime = 1 : Mysql = 0 : Testeo = 1"
+CondComp="SocketType = 1 : ConUpTime = 1 : Mysql = 0 : Testeo = 1"
 CompilationType=0
 OptimizationType=2
 FavorPentiumPro(tm)=0

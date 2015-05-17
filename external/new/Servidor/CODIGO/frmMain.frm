@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{48E59290-9880-11CF-9754-00AA00C00908}#1.0#0"; "msinet.ocx"
+Object = "{48E59290-9880-11CF-9754-00AA00C00908}#1.0#0"; "MSINET.OCX"
 Begin VB.Form frmMain 
    BackColor       =   &H00101010&
    BorderStyle     =   1  'Fixed Single
@@ -865,15 +865,9 @@ Private Sub Command5_Click()
 End Sub
 
 Private Sub Form_Load()
-#If UsarQueSocket = 1 Then
+#If SocketType = 1 Then
     mnuReiniciarSock.Visible = True
     mnuReiniciarListen.Visible = True
-#ElseIf UsarQueSocket = 0 Then
-    mnuReiniciarSock.Visible = False
-    mnuReiniciarListen.Visible = False
-#ElseIf UsarQueSocket = 2 Then
-    mnuReiniciarSock.Visible = True
-    mnuReiniciarListen.Visible = False
 #End If
 End Sub
 
@@ -933,12 +927,8 @@ Call modStatistics.DumpStatistics
 
 Call QuitarIconoSystray
 
-#If UsarQueSocket = 1 Then
-Call LimpiaWsApi
-#ElseIf UsarQueSocket = 0 Then
-Socket1.Cleanup
-#ElseIf UsarQueSocket = 2 Then
-Serv.Detener
+#If SocketType = 1 Then
+    Call LimpiaWsApi
 #End If
 
 Dim LoopC As Integer
@@ -1187,13 +1177,8 @@ If MsgBox("¿Está seguro que desea cargar el último backup del mundo?", vbYesNo, 
     If FileExist(App.Path & "\logs\Teleports.Log", vbNormal) Then Kill App.Path & "\logs\Teleports.Log"
     
     
-    #If UsarQueSocket = 1 Then
+    #If SocketType = 1 Then
     Call apiclosesocket(SockListen)
-    #ElseIf UsarQueSocket = 0 Then
-    frmMain.Socket1.Cleanup
-    frmMain.Socket2(0).Cleanup
-    #ElseIf UsarQueSocket = 2 Then
-    frmMain.Serv.Detener
     #End If
     
     Dim LoopC As Integer
@@ -1213,26 +1198,8 @@ If MsgBox("¿Está seguro que desea cargar el último backup del mundo?", vbYesNo, 
     Call CargarBackUp
     Call LoadOBJData
     
-    #If UsarQueSocket = 1 Then
+    #If SocketType = 1 Then
     SockListen = ListenForConnect(iniPuerto, hWndMsg, "")
-    
-    #ElseIf UsarQueSocket = 0 Then
-    frmMain.Socket1.AddressFamily = AF_INET
-    frmMain.Socket1.Protocol = IPPROTO_IP
-    frmMain.Socket1.SocketType = SOCK_STREAM
-    frmMain.Socket1.Binary = False
-    frmMain.Socket1.Blocking = False
-    frmMain.Socket1.BufferSize = 1024
-    
-    frmMain.Socket2(0).AddressFamily = AF_INET
-    frmMain.Socket2(0).Protocol = IPPROTO_IP
-    frmMain.Socket2(0).SocketType = SOCK_STREAM
-    frmMain.Socket2(0).Blocking = False
-    frmMain.Socket2(0).BufferSize = 2048
-    
-    'Escucha
-    frmMain.Socket1.LocalPort = iniPuerto
-    frmMain.Socket1.listen
     #End If
     
     If frmMain.Visible Then frmMain.txStatus.Text = "Escuchando conexiones entrantes ..."
@@ -1357,7 +1324,7 @@ End If
 End Sub
 
 Private Sub mnuReiniciarListen_Click()
-#If UsarQueSocket = 1 Then
+#If SocketType = 1 Then
     'Cierra el socket de escucha
     If SockListen >= 0 Then Call apiclosesocket(SockListen)
     
@@ -1371,25 +1338,10 @@ Private Sub mnuReiniciarRespawn_Click()
 End Sub
 
 Private Sub mnuReiniciarSock_Click()
-#If UsarQueSocket = 1 Then
+#If SocketType = 1 Then
 
 If MsgBox("¿Está seguro que desea reiniciar los sockets? Se cerrarán todas las conexiones activas.", vbYesNo, "Reiniciar Sockets") = vbYes Then
     Call WSApiReiniciarSockets
-End If
-
-#ElseIf UsarQueSocket = 2 Then
-
-Dim LoopC As Integer
-
-If MsgBox("¿Está seguro que desea reiniciar los sockets? Se cerrarán todas las conexiones activas.", vbYesNo, "Reiniciar Sockets") = vbYes Then
-    For LoopC = 1 To iniMaxUsuarios
-        If UserList(LoopC).ConnID <> -1 And UserList(LoopC).ConnIDValida Then
-            Call CloseSocket(LoopC)
-        End If
-    Next LoopC
-    
-    Call frmMain.Serv.Detener
-    Call frmMain.Serv.Iniciar(iniPuerto)
 End If
 
 #End If
@@ -1787,29 +1739,6 @@ Exit Sub
 ErrHandler:
     Call LogError("Error en tPiqueteC_Timer " & Err.Number & ": " & Err.description)
 End Sub
-
-
-
-
-
-'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-'''''''''''''''''USO DEL CONTROL TCPSERV'''''''''''''''''''''''''''
-'''''''''''''Compilar con UsarQueSocket = 3''''''''''''''''''''''''
-'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-
-
-#If UsarQueSocket = 3 Then
-
-
-
-
-
-#End If
-'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-''''''''''''''FIN  USO DEL CONTROL TCPSERV'''''''''''''''''''''''''
-'''''''''''''Compilar con UsarQueSocket = 3''''''''''''''''''''''''
-'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-
 Private Sub txtChat_Change()
 
 End Sub
