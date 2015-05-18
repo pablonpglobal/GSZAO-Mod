@@ -95,7 +95,7 @@ Private Sub lblLabel_Click()
 'Last modified: 30/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     If bEnabled Then
         RaiseEvent Click
@@ -109,7 +109,7 @@ Private Sub lblLabel_DblClick()
 'Last modified: 30/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     If bEnabled Then
         RaiseEvent DblClick
@@ -123,7 +123,7 @@ Private Sub lblLabel_MouseDown(Button As Integer, Shift As Integer, X As Single,
 'Last modified: 30/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     If bEnabled Then
         RaiseEvent MouseDown(Button, Shift, X, Y)
@@ -137,7 +137,7 @@ Private Sub lblLabel_MouseMove(Button As Integer, Shift As Integer, X As Single,
 'Last modified: 30/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     If bEnabled Then
         RaiseEvent MouseMove(Button, Shift, X, Y)
@@ -151,7 +151,7 @@ Private Sub lblLabel_MouseUp(Button As Integer, Shift As Integer, X As Single, Y
 'Last modified: 30/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     If bEnabled Then
         RaiseEvent MouseUp(Button, Shift, X, Y)
@@ -165,7 +165,7 @@ Private Sub UserControl_Click()
 'Last modified: 30/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     If bEnabled Then
         RaiseEvent Click
@@ -179,7 +179,7 @@ Private Sub UserControl_DblClick()
 'Last modified: 30/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     If bEnabled Then
         RaiseEvent DblClick
@@ -193,7 +193,7 @@ Private Sub UserControl_MouseDown(Button As Integer, Shift As Integer, X As Sing
 'Last modified: 30/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     If bEnabled Then
         RaiseEvent MouseDown(Button, Shift, X, Y)
@@ -207,7 +207,7 @@ Private Sub UserControl_MouseMove(Button As Integer, Shift As Integer, X As Sing
 'Last modified: 30/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     If bEnabled Then
         RaiseEvent MouseMove(Button, Shift, X, Y)
@@ -221,7 +221,7 @@ Private Sub UserControl_MouseUp(Button As Integer, Shift As Integer, X As Single
 'Last modified: 30/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     If bEnabled Then
         RaiseEvent MouseUp(Button, Shift, X, Y)
@@ -235,7 +235,7 @@ Private Sub DrawLabel()
 'Last modified: 30/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     If bEnabled = False Then Exit Sub
 
@@ -289,7 +289,7 @@ Private Sub tTimer_Timer()
 'Last modified: 30/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     If bEnabled = False Then
         tTimer.Enabled = False
@@ -307,7 +307,7 @@ Private Sub ResizeLabel()
 'Last modified: 30/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     lblLabel.Left = 0
     lblLabel.Width = UserControl.Width
@@ -322,7 +322,7 @@ Private Sub UserControl_InitProperties()
 'Last modified: 30/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
 
     iValue = 1
     bEnabled = True
@@ -340,7 +340,7 @@ Private Sub UserControl_Resize()
 'Last modified: 30/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     shpBack.Height = UserControl.Height
     shpBack.Width = UserControl.Width
@@ -355,7 +355,7 @@ Private Sub UserControl_ReadProperties(PropBag As PropertyBag)
 'Last modified: 30/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     With PropBag
         iValue = .ReadProperty("Value", 50)
@@ -381,7 +381,7 @@ Private Sub UserControl_WriteProperties(PropBag As PropertyBag)
 'Last modified: 30/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     With PropBag
         .WriteProperty "Value", iValue, 50
@@ -402,7 +402,7 @@ Public Property Get Enabled() As Boolean
 'Last modified: 30/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     Enabled = bEnabled
     
@@ -414,7 +414,7 @@ Public Property Let Enabled(ByVal NewValue As Boolean)
 'Last modified: 30/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     bEnabled = NewValue
     PropertyChanged "Enabled"
@@ -429,7 +429,7 @@ Public Property Get Animado() As Boolean
 'Last modified: 30/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     Animado = bAnimate
     
@@ -441,7 +441,7 @@ Public Property Let Animado(ByVal NewValue As Boolean)
 'Last modified: 30/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     bAnimate = NewValue
     PropertyChanged "Animate"
@@ -456,7 +456,7 @@ Public Property Get UseBackground() As Boolean
 'Last modified: 30/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     UseBackground = bUseBackground
     
@@ -468,7 +468,7 @@ Public Property Let UseBackground(ByVal NewValue As Boolean)
 'Last modified: 30/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     bUseBackground = NewValue
     PropertyChanged "UseBackground"
@@ -483,7 +483,7 @@ Public Property Get Font() As Font
 'Last modified: 30/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     Set Font = lblLabel.Font
     
@@ -495,7 +495,7 @@ Public Property Set Font(ByRef newFont As Font)
 'Last modified: 30/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     Set lblLabel.Font = newFont
 
@@ -511,7 +511,7 @@ Public Property Get FontBold() As Boolean
 'Last modified: 30/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     FontBold = lblLabel.FontBold
     
@@ -523,7 +523,7 @@ Public Property Let FontBold(ByVal NewValue As Boolean)
 'Last modified: 30/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     lblLabel.FontBold = NewValue
     
@@ -537,7 +537,7 @@ Public Property Get FontItalic() As Boolean
 'Last modified: 30/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     FontItalic = lblLabel.FontItalic
     
@@ -549,7 +549,7 @@ Public Property Let FontItalic(ByVal NewValue As Boolean)
 'Last modified: 30/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     lblLabel.FontItalic = NewValue
 
@@ -563,7 +563,7 @@ Public Property Get FontUnderline() As Boolean
 'Last modified: 30/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     FontUnderline = lblLabel.FontUnderline
     
@@ -575,7 +575,7 @@ Public Property Let FontUnderline(ByVal NewValue As Boolean)
 'Last modified: 30/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     lblLabel.FontUnderline = NewValue
 
@@ -589,7 +589,7 @@ Public Property Get FontSize() As Integer
 'Last modified: 30/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     FontSize = lblLabel.FontSize
     
@@ -601,7 +601,7 @@ Public Property Let FontSize(ByVal NewValue As Integer)
 'Last modified: 30/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     lblLabel.FontSize = NewValue
 
@@ -615,7 +615,7 @@ Public Property Get FontName() As String
 'Last modified: 30/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     FontName = lblLabel.FontName
     
@@ -627,7 +627,7 @@ Public Property Let FontName(ByVal NewValue As String)
 'Last modified: 30/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     lblLabel.FontName = NewValue
     
@@ -641,7 +641,7 @@ Public Property Get ForeColor() As OLE_COLOR
 'Last modified: 30/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     ForeColor = lForeColor
     
@@ -653,7 +653,7 @@ Public Property Let ForeColor(ByVal NewValue As OLE_COLOR)
 'Last modified: 30/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     lForeColor = NewValue
     PropertyChanged "ForeColor"
@@ -668,7 +668,7 @@ Public Property Get BackColor() As OLE_COLOR
 'Last modified: 30/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     BackColor = lBackColor
     
@@ -680,7 +680,7 @@ Public Property Let BackColor(ByVal NewValue As OLE_COLOR)
 'Last modified: 30/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     lBackColor = NewValue
     PropertyChanged "BackColor"
@@ -695,7 +695,7 @@ Public Property Get BorderColor() As OLE_COLOR
 'Last modified: 30/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     BorderColor = lBorderColor
     
@@ -707,7 +707,7 @@ Public Property Let BorderColor(ByVal NewValue As OLE_COLOR)
 'Last modified: 30/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     lBorderColor = NewValue
     PropertyChanged "BorderColor"
@@ -722,7 +722,7 @@ Public Property Let Value(ByVal NewValue As Long)
 'Last modified: 30/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     If NewValue > MAX_LONG Then NewValue = MAX_LONG
     If NewValue < 0 Then NewValue = 0
@@ -740,7 +740,7 @@ Public Property Get Value() As Long
 'Last modified: 30/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     Value = iValue
     

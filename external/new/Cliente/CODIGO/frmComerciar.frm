@@ -112,7 +112,7 @@ Begin VB.Form frmComerciar
       PICH            =   "frmComerciar.frx":16706
       PICV            =   "frmComerciar.frx":16722
       BeginProperty FONT {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-         Name            =   "Morpheus"
+         Name            =   "Arial"
          Size            =   12
          Charset         =   0
          Weight          =   400
@@ -138,7 +138,7 @@ Begin VB.Form frmComerciar
       PICH            =   "frmComerciar.frx":16776
       PICV            =   "frmComerciar.frx":16792
       BeginProperty FONT {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-         Name            =   "Morpheus"
+         Name            =   "Arial"
          Size            =   12
          Charset         =   0
          Weight          =   400
@@ -164,7 +164,7 @@ Begin VB.Form frmComerciar
       PICH            =   "frmComerciar.frx":167E6
       PICV            =   "frmComerciar.frx":16802
       BeginProperty FONT {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-         Name            =   "Morpheus"
+         Name            =   "Arial"
          Size            =   9
          Charset         =   0
          Weight          =   400
@@ -308,7 +308,7 @@ Private ClickNpcInv As Boolean
 Private lIndex As Byte
 
 Private Sub cantidad_Change()
-On Error Resume Next
+'on error resume next
     If Val(cantidad.Text) < 1 Then
         cantidad.Text = 1
     End If
@@ -330,7 +330,7 @@ On Error Resume Next
 End Sub
 
 Private Sub cantidad_KeyPress(KeyAscii As Integer)
-On Error Resume Next
+'on error resume next
     If (KeyAscii <> 8) Then
         If (KeyAscii <> 6) And (KeyAscii < 48 Or KeyAscii > 57) Then
             KeyAscii = 0
@@ -375,13 +375,13 @@ Private Sub cVender_Click()
 End Sub
 
 Private Sub Form_Activate()
-On Error Resume Next
+'on error resume next
     InvComUsu.DrawInv
     InvComNpc.DrawInv
 End Sub
 
 Private Sub Form_GotFocus()
-On Error Resume Next
+'on error resume next
     InvComUsu.DrawInv
     InvComNpc.DrawInv
 End Sub
@@ -453,7 +453,7 @@ error:
 End Function
 
 Private Sub Form_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
-On Error Resume Next
+'on error resume next
     InvComUsu.DrawInv
     InvComNpc.DrawInv
 End Sub
@@ -463,7 +463,7 @@ Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
 End Sub
 
 Private Sub picInvNpc_Click()
-On Error Resume Next
+'on error resume next
     Dim ItemSlot As Byte
     
     ItemSlot = InvComNpc.SelectedItem
@@ -498,7 +498,7 @@ On Error Resume Next
 End Sub
 
 Private Sub picInvUser_Click()
-On Error Resume Next
+'on error resume next
     Dim ItemSlot As Byte
     
     ItemSlot = InvComUsu.SelectedItem
@@ -535,7 +535,7 @@ On Error Resume Next
 End Sub
 
 Private Sub tmrReDraw_Timer()
-On Error Resume Next
+'on error resume next
     InvComUsu.DrawInv
     InvComNpc.DrawInv
 End Sub

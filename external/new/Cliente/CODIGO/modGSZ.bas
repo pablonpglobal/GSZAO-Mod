@@ -268,7 +268,7 @@ Private Sub LoadCursor(ByVal sCursor As Byte, lHandle As Long)
 End Sub
 
 Public Sub SetMusicInfo(ByRef r_sArtist As String, ByRef r_sAlbum As String, ByRef r_sTitle As String, Optional ByRef r_sWMContentID As String = vbNullString, Optional ByRef r_sFormat As String = "{0} - {1}", Optional ByRef r_bShow As Boolean = True)
-On Error Resume Next
+'on error resume next
     Dim udtData As COPYDATASTRUCT
     Dim sBuffer As String
     Dim hMSGRUI As Long

@@ -221,7 +221,7 @@ On Local Error Resume Next
     'Stop music
     If Not Segment Is Nothing Then Call Performance.StopEx(Segment, 0, DMUS_SEGF_DEFAULT)
     
-    Call Performance.CloseDown
+    If Not Performance Is Nothing Then Call Performance.CloseDown
     
     Set DirectSound = Nothing
     

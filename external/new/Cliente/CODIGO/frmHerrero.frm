@@ -751,7 +751,7 @@ Public Sub HideExtraControls(ByVal NumItems As Integer, Optional ByVal Upgrading
 End Sub
 
 Private Sub RenderItem(ByRef Pic As PictureBox, ByVal GrhIndex As Long)
-On Error Resume Next
+'on error resume next
 
     Dim SR As RECT
     Dim DR As RECT
@@ -774,7 +774,7 @@ On Error Resume Next
 End Sub
 
 Public Sub RenderList(ByVal Inicio As Integer, ByVal Armas As Boolean)
-On Error Resume Next
+'on error resume next
 
     Dim i As Long
     Dim NumItems As Integer
@@ -809,7 +809,7 @@ On Error Resume Next
 End Sub
 
 Public Sub RenderUpgradeList(ByVal Inicio As Integer)
-On Error Resume Next
+'on error resume next
     
     Dim i As Long
     Dim NumItems As Integer
@@ -851,7 +851,7 @@ End Sub
 
 
 Private Sub picPestania_Click(Index As Integer)
-On Error Resume Next
+'on error resume next
 
     Dim i As Integer
     Dim NumItems As Integer
@@ -903,7 +903,7 @@ On Error Resume Next
 End Sub
 
 Private Sub Scroll_Change()
-On Error Resume Next
+'on error resume next
 
     Dim i As Long
     

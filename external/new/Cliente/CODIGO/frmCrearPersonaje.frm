@@ -1678,7 +1678,7 @@ Private Sub lstGenero_Click()
 End Sub
 
 Private Sub lstProfesion_Click()
-On Error Resume Next
+'on error resume next
 '    Image1.Picture = LoadPicture(DirGraficos & lstProfesion.Text & ".jpg")
 '
     UserClase = lstProfesion.ListIndex + 1
@@ -1732,7 +1732,7 @@ Private Sub picHead_Click(Index As Integer)
 End Sub
 
 Private Sub tAnimacion_Timer()
-On Error Resume Next
+'on error resume next
     Dim SR As RECT
     Dim DR As RECT
     Dim Grh As Long

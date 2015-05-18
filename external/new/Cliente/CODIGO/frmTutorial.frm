@@ -316,7 +316,7 @@ End Sub
 
 
 Private Sub LoadTutorial()
-On Error Resume Next
+'on error resume next
     Dim TutorialPath As String
     Dim lPage As Long
     Dim NumLines As Long

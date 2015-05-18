@@ -508,7 +508,7 @@ Private Sub PicInv_MouseMove(Button As Integer, Shift As Integer, X As Single, Y
 End Sub
 
 Private Sub tmrReDraw_Timer()
-On Error Resume Next
+'on error resume next
     InvBanco(0).DrawInv
     InvBanco(1).DrawInv
 End Sub

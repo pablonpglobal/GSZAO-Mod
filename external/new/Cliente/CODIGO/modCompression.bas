@@ -92,7 +92,7 @@ Public Sub GenerateContra(ByVal Contra As String, Optional Modo As Byte = 0)
 '
 '***************************************************
 
-On Error Resume Next
+'on error resume next
 
     Dim loopC As Byte
     If Modo = 0 Then
@@ -889,7 +889,7 @@ Public Function GetNext_Bitmap(ByRef ResourcePath As String, ByRef ReadFiles As 
 'Last Modify Date: 09/10/2012 - ^[GS]^
 'Reads the next InfoHeader
 '*****************************************************************
-On Error Resume Next
+'on error resume next
 
     Dim ResourceFile As Integer
     Dim FileHead As FILEHEADER

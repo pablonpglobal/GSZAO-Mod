@@ -484,7 +484,7 @@ Private Const MAX_NEWS_LENGTH As Integer = 512
 Private clsFormulario As clsFormMovementManager
 
 Private Sub cAbrirElecciones_Click()
-On Error Resume Next
+'on error resume next
     Call Audio.PlayWave(SND_CLICK)
     Call WriteGuildOpenElections
     Unload Me
@@ -498,7 +498,7 @@ Private Sub cActualizar_Click()
 End Sub
 
 Private Sub cCerrar_Click()
-On Error Resume Next
+'on error resume next
     Call Audio.PlayWave(SND_CLICK)
     Unload Me
     frmMain.SetFocus
@@ -586,7 +586,7 @@ Private Sub txtFiltrarClanes_GotFocus()
 End Sub
 
 Private Sub FiltrarListaClanes(ByRef sCompare As String)
-On Error Resume Next
+'on error resume next
     Dim lIndex As Long
     
     With guildslist
@@ -621,7 +621,7 @@ Private Sub txtFiltrarMiembros_GotFocus()
 End Sub
 
 Private Sub FiltrarListaMiembros(ByRef sCompare As String)
-On Error Resume Next
+'on error resume next
     Dim lIndex As Long
     
     With members
@@ -665,8 +665,8 @@ Private Function LoadPicture(ByVal strFileName As String) As Picture
 Dim IID As TGUID
 
         With IID
-                .Data1 = &H7BF80980
-                .Data2 = &HBF32
+                .data1 = &H7BF80980
+                .data2 = &HBF32
                 .Data3 = &H101A
                 .Data4(0) = &H8B
                 .Data4(1) = &HBB

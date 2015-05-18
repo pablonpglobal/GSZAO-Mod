@@ -198,7 +198,7 @@ Private Sub bButton_Click()
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     If isEnabled Then
         RaiseEvent Click
@@ -211,7 +211,7 @@ Private Sub bButton_DblClick()
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     If isEnabled Then
         Call bButton_MouseDown(1, 0, 0, 0)
@@ -225,7 +225,7 @@ Private Sub bButton_GotFocus()
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     If isOver = False And isEnabled Then
         isFocus = True
@@ -240,7 +240,7 @@ Private Sub bButton_KeyDown(KeyCode As Integer, Shift As Integer)
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     RaiseEvent KeyDown(KeyCode, Shift)
     lastKeyDown = KeyCode
@@ -261,7 +261,7 @@ Private Sub bButton_KeyPress(KeyAscii As Integer)
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     RaiseEvent KeyPress(KeyAscii)
 End Sub
@@ -272,7 +272,7 @@ Private Sub bButton_KeyUp(KeyCode As Integer, Shift As Integer)
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     RaiseEvent KeyUp(KeyCode, Shift)
     If (KeyCode = 32) And (lastKeyDown = 32) Then
@@ -289,7 +289,7 @@ Private Sub bButton_LostFocus()
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     If isOver = False And isEnabled Then
         isFocus = False
@@ -304,7 +304,7 @@ Private Sub bButton_MouseDown(Button As Integer, Shift As Integer, X As Single, 
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     RaiseEvent MouseDown(Button, Shift, X, Y)
     lastButton = Button
@@ -320,11 +320,11 @@ Private Sub bButton_MouseMove(Button As Integer, Shift As Integer, X As Single, 
 'Last modified: 20/10/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     RaiseEvent MouseMove(Button, Shift, X, Y)
     If lastButton < 2 And isEnabled Then
-        lastHwnd = bButton.hWnd
+        lastHwnd = bButton.hwnd
         If Not isMouseOver Then
             Call Redraw(0)
             'Debug.Print "bButton_MouseMove0"
@@ -346,7 +346,7 @@ Private Sub bButton_MouseUp(Button As Integer, Shift As Integer, X As Single, Y 
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     RaiseEvent MouseUp(Button, Shift, X, Y)
     If lastButton <> 2 And isEnabled Then
@@ -367,7 +367,7 @@ Private Sub MouseO_Timer()
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     If Not isMouseOver Then
         Call Redraw(0)
@@ -385,7 +385,7 @@ Private Function isMouseOver() As Boolean
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     Dim pt As POINTAPI
     GetCursorPos pt
@@ -398,7 +398,7 @@ Private Sub ReloadTextures()
 'Last modified: 31/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     Set iEsquina = iESQ.Picture
     Set iFondo = iFON.Picture
@@ -442,7 +442,7 @@ Private Sub Redraw(ByVal Estado As Byte, Optional Force As Boolean = False)
 'Last modified: 31/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     If lastStat = Estado And Force = False Then
         'Debug.Print "<Cancel" & Estado
@@ -532,7 +532,7 @@ Private Sub DrawCaption()
 'Last modified: 27/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     With bButton
         Dim TempC As Long
@@ -566,7 +566,7 @@ Private Sub UpdateCaption(Optional bRedraw As Boolean = True)
 'Last modified: 18/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     bButton.Font = UserControl.Font
     bButton.FontBold = UserControl.FontBold
@@ -601,7 +601,7 @@ Private Sub UserControl_AccessKeyPress(KeyAscii As Integer)
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     lastButton = 1
     Call UserControl_Click
@@ -614,7 +614,7 @@ Private Sub UserControl_AmbientChanged(PropertyName As String)
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
 
     Call Redraw(lastStat, True)
 End Sub
@@ -625,7 +625,7 @@ Private Sub UserControl_Click()
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     RaiseEvent Click
 End Sub
@@ -636,7 +636,7 @@ Private Sub UserControl_DblClick()
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     RaiseEvent DblClick
 End Sub
@@ -647,7 +647,7 @@ Private Sub UserControl_KeyPress(KeyAscii As Integer)
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     RaiseEvent KeyPress(KeyAscii)
 End Sub
@@ -658,7 +658,7 @@ Private Sub UserControl_Initialize()
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     Call ReloadTextures
     isEnabled = True
@@ -672,7 +672,7 @@ Private Sub UserControl_InitProperties()
 'Last modified: 32/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     lastStat = 0
     ForeC = RGB(178, 155, 111)
@@ -702,7 +702,7 @@ Private Sub UserControl_KeyDown(KeyCode As Integer, Shift As Integer)
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     RaiseEvent KeyDown(KeyCode, Shift)
 End Sub
@@ -713,7 +713,7 @@ Private Sub UserControl_KeyUp(KeyCode As Integer, Shift As Integer)
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     RaiseEvent KeyUp(KeyCode, Shift)
 End Sub
@@ -724,7 +724,7 @@ Private Sub UserControl_MouseDown(Button As Integer, Shift As Integer, X As Sing
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     RaiseEvent MouseDown(Button, Shift, X, Y)
 End Sub
@@ -735,7 +735,7 @@ Private Sub UserControl_MouseMove(Button As Integer, Shift As Integer, X As Sing
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     RaiseEvent MouseMove(Button, Shift, X, Y)
 End Sub
@@ -746,7 +746,7 @@ Private Sub UserControl_MouseUp(Button As Integer, Shift As Integer, X As Single
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     RaiseEvent MouseUp(Button, Shift, X, Y)
 End Sub
@@ -757,7 +757,7 @@ Private Sub UserControl_Paint()
 'Last modified: 03/08/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     Call Redraw(0, True)
     isOver = False
@@ -769,7 +769,7 @@ Private Sub UserControl_Show()
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     Call Redraw(0)
     'Debug.Print "UserControl_Show0"
@@ -782,7 +782,7 @@ Private Sub UserControl_Resize()
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     bButton.Width = UserControl.Width
     bButton.Height = UserControl.Height
@@ -800,7 +800,7 @@ Private Sub UserControl_ReadProperties(PropBag As PropertyBag)
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
 
     With PropBag
         CaptionButton = .ReadProperty("TX", "")
@@ -825,7 +825,7 @@ Private Sub UserControl_WriteProperties(PropBag As PropertyBag)
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     With PropBag
         Call .WriteProperty("TX", CaptionButton)
@@ -846,7 +846,7 @@ Public Property Get Enabled() As Boolean
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     Enabled = isEnabled
 End Property
@@ -857,7 +857,7 @@ Public Property Let Enabled(ByVal NewValue As Boolean)
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     isEnabled = NewValue
     isOver = False
@@ -872,7 +872,7 @@ Public Property Get Caption() As String
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     Caption = CaptionButton
 End Property
@@ -883,7 +883,7 @@ Public Property Let Caption(ByVal NewValue As String)
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     CaptionButton = NewValue
     Call UpdateCaption
@@ -898,7 +898,7 @@ Public Property Get ForeColor() As OLE_COLOR
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     ForeColor = ForeC
 End Property
@@ -909,7 +909,7 @@ Public Property Let ForeColor(ByVal theCol As OLE_COLOR)
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     ForeC = theCol
     Call UpdateCaption
@@ -923,7 +923,7 @@ Public Property Get ForeColorOver() As OLE_COLOR
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     ForeColorOver = ForeCo
 End Property
@@ -934,7 +934,7 @@ Public Property Let ForeColorOver(ByVal theCol As OLE_COLOR)
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     ForeCo = theCol
     Call UpdateCaption
@@ -948,7 +948,7 @@ Public Property Get Font() As Font
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     Set Font = UserControl.Font
 End Property
@@ -959,7 +959,7 @@ Public Property Set Font(ByRef newFont As Font)
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     Set UserControl.Font = newFont
     Call UpdateCaption
@@ -974,7 +974,7 @@ Public Property Get FontBold() As Boolean
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     FontBold = UserControl.FontBold
 End Property
@@ -985,7 +985,7 @@ Public Property Let FontBold(ByVal NewValue As Boolean)
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     UserControl.FontBold = NewValue
     Call UpdateCaption
@@ -998,7 +998,7 @@ Public Property Get FontItalic() As Boolean
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     FontItalic = UserControl.FontItalic
 End Property
@@ -1009,7 +1009,7 @@ Public Property Let FontItalic(ByVal NewValue As Boolean)
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     UserControl.FontItalic = NewValue
     Call UpdateCaption
@@ -1023,7 +1023,7 @@ Public Property Get FontUnderline() As Boolean
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     FontUnderline = UserControl.FontUnderline
 End Property
@@ -1034,7 +1034,7 @@ Public Property Let FontUnderline(ByVal NewValue As Boolean)
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     UserControl.FontUnderline = NewValue
     Call UpdateCaption
@@ -1048,7 +1048,7 @@ Public Property Get FontSize() As Integer
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     FontSize = UserControl.FontSize
 End Property
@@ -1059,7 +1059,7 @@ Public Property Let FontSize(ByVal NewValue As Integer)
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     UserControl.FontSize = NewValue
     Call UpdateCaption
@@ -1073,7 +1073,7 @@ Public Property Get FontName() As String
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     FontName = UserControl.FontName
 End Property
@@ -1084,7 +1084,7 @@ Public Property Let FontName(ByVal NewValue As String)
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     UserControl.FontName = NewValue
     Call UpdateCaption
@@ -1099,7 +1099,7 @@ Public Property Get PictureEsquina() As StdPicture
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     Set PictureEsquina = iESQ.Picture
 
@@ -1111,7 +1111,7 @@ Public Property Set PictureEsquina(ByVal newPic As StdPicture)
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     iESQ.Picture = newPic
     Call ReloadTextures
@@ -1126,7 +1126,7 @@ Public Property Get PictureFondo() As StdPicture
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
 
     Set PictureFondo = iFON.Picture
 
@@ -1138,7 +1138,7 @@ Public Property Set PictureFondo(ByVal newPic As StdPicture)
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
 
     iFON.Picture = newPic
     Call ReloadTextures
@@ -1154,7 +1154,7 @@ Public Property Get PictureHorizontal() As StdPicture
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
 
     Set PictureHorizontal = iHOR.Picture
 
@@ -1166,7 +1166,7 @@ Public Property Set PictureHorizontal(ByVal newPic As StdPicture)
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
 
     iHOR.Picture = newPic
     Call ReloadTextures
@@ -1181,7 +1181,7 @@ Public Property Get PictureVertical() As StdPicture
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
 
     Set PictureVertical = iVER.Picture
 
@@ -1193,7 +1193,7 @@ Public Property Set PictureVertical(ByVal newPic As StdPicture)
 'Last modified: 15/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
 
     iVER.Picture = newPic
     Call ReloadTextures

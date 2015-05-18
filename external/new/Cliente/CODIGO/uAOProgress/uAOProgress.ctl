@@ -107,7 +107,7 @@ Private Sub DrawStat()
 'Last modified: 03/09/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     If bEnabled = False Then Exit Sub
     
@@ -172,7 +172,7 @@ Private Sub lblStat_MouseDown(Button As Integer, Shift As Integer, X As Single, 
 'Last modified: 03/09/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
 
     If LenB(MouseOverText) = 0 Then
         MouseOverText = Round(CDbl(iNewValue) * CDbl(100) / CDbl(iMax), 2) & "%"
@@ -188,7 +188,7 @@ Private Sub lblStat_MouseUp(Button As Integer, Shift As Integer, X As Single, Y 
 'Last modified: 03/09/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
 
     lblStat.Caption = iNewValue & "/" & iMax
     
@@ -200,7 +200,7 @@ Private Sub tTimer_Timer()
 'Last modified: 03/09/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     If bEnabled = False Then
         tTimer.Enabled = False
@@ -218,7 +218,7 @@ Private Sub ResizeLabel()
 'Last modified: 25/08/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     lblStat.Left = 0
     lblStat.Width = UserControl.Width
@@ -233,7 +233,7 @@ Private Sub UserControl_InitProperties()
 'Last modified: 25/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
 
     iMax = 100
     iMin = 1
@@ -254,7 +254,7 @@ Private Sub UserControl_Resize()
 'Last modified: 25/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     shpStat.Left = 0
     shpStat.Height = UserControl.Height
@@ -270,7 +270,7 @@ Private Sub UserControl_ReadProperties(PropBag As PropertyBag)
 'Last modified: 25/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     With PropBag
         iMax = .ReadProperty("Max", 100)
@@ -301,7 +301,7 @@ Private Sub UserControl_WriteProperties(PropBag As PropertyBag)
 'Last modified: 25/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     With PropBag
         .WriteProperty "Max", iMax, 100
@@ -325,7 +325,7 @@ Public Property Get Enabled() As Boolean
 'Last modified: 25/08/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     Enabled = bEnabled
     
@@ -337,7 +337,7 @@ Public Property Let Enabled(ByVal NewValue As Boolean)
 'Last modified: 25/08/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     bEnabled = NewValue
     PropertyChanged "Enabled"
@@ -352,7 +352,7 @@ Public Property Get Animado() As Boolean
 'Last modified: 25/08/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     Animado = bAnimate
     
@@ -364,7 +364,7 @@ Public Property Let Animado(ByVal NewValue As Boolean)
 'Last modified: 25/08/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     bAnimate = NewValue
     PropertyChanged "Animate"
@@ -379,7 +379,7 @@ Public Property Get UseBackground() As Boolean
 'Last modified: 25/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     UseBackground = bUseBackground
     
@@ -391,7 +391,7 @@ Public Property Let UseBackground(ByVal NewValue As Boolean)
 'Last modified: 25/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     bUseBackground = NewValue
     PropertyChanged "UseBackground"
@@ -406,7 +406,7 @@ Public Property Get Font() As Font
 'Last modified: 25/08/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     Set Font = lblStat.Font
     
@@ -418,7 +418,7 @@ Public Property Set Font(ByRef newFont As Font)
 'Last modified: 25/08/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     Set lblStat.Font = newFont
 
@@ -434,7 +434,7 @@ Public Property Get FontBold() As Boolean
 'Last modified: 25/08/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     FontBold = lblStat.FontBold
     
@@ -446,7 +446,7 @@ Public Property Let FontBold(ByVal NewValue As Boolean)
 'Last modified: 25/08/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     lblStat.FontBold = NewValue
     
@@ -460,7 +460,7 @@ Public Property Get FontItalic() As Boolean
 'Last modified: 25/08/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     FontItalic = lblStat.FontItalic
     
@@ -472,7 +472,7 @@ Public Property Let FontItalic(ByVal NewValue As Boolean)
 'Last modified: 25/08/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     lblStat.FontItalic = NewValue
 
@@ -486,7 +486,7 @@ Public Property Get FontUnderline() As Boolean
 'Last modified: 25/08/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     FontUnderline = lblStat.FontUnderline
     
@@ -498,7 +498,7 @@ Public Property Let FontUnderline(ByVal NewValue As Boolean)
 'Last modified: 25/08/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     lblStat.FontUnderline = NewValue
 
@@ -512,7 +512,7 @@ Public Property Get FontSize() As Integer
 'Last modified: 25/08/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     FontSize = lblStat.FontSize
     
@@ -524,7 +524,7 @@ Public Property Let FontSize(ByVal NewValue As Integer)
 'Last modified: 25/08/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     lblStat.FontSize = NewValue
 
@@ -538,7 +538,7 @@ Public Property Get FontName() As String
 'Last modified: 25/08/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     FontName = lblStat.FontName
     
@@ -550,7 +550,7 @@ Public Property Let FontName(ByVal NewValue As String)
 'Last modified: 25/08/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     lblStat.FontName = NewValue
     
@@ -564,7 +564,7 @@ Public Property Get ForeColor() As OLE_COLOR
 'Last modified: 25/08/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     ForeColor = lForeColor
     
@@ -576,7 +576,7 @@ Public Property Let ForeColor(ByVal NewValue As OLE_COLOR)
 'Last modified: 25/08/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     lForeColor = NewValue
     PropertyChanged "ForeColor"
@@ -591,7 +591,7 @@ Public Property Get BackgroundColor() As OLE_COLOR
 'Last modified: 25/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     BackgroundColor = lBackgroundColor
     
@@ -603,7 +603,7 @@ Public Property Let BackgroundColor(ByVal NewValue As OLE_COLOR)
 'Last modified: 25/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     lBackgroundColor = NewValue
     PropertyChanged "BackgroundColor"
@@ -618,7 +618,7 @@ Public Property Get BackColor() As OLE_COLOR
 'Last modified: 25/08/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     BackColor = lBackColor
     
@@ -630,7 +630,7 @@ Public Property Let BackColor(ByVal NewValue As OLE_COLOR)
 'Last modified: 25/08/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     lBackColor = NewValue
     PropertyChanged "BackColor"
@@ -645,7 +645,7 @@ Public Property Get BorderColor() As OLE_COLOR
 'Last modified: 25/08/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     BorderColor = lBorderColor
     
@@ -657,7 +657,7 @@ Public Property Let BorderColor(ByVal NewValue As OLE_COLOR)
 'Last modified: 25/04/2013
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     lBorderColor = NewValue
     PropertyChanged "BorderColor"
@@ -673,7 +673,7 @@ Public Property Let Value(ByVal NewValue As Long)
 'Last modified: 25/08/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     If NewValue > iMax Then NewValue = iMax
     If NewValue < iMin Then NewValue = iMin
@@ -691,7 +691,7 @@ Public Property Get Value() As Long
 'Last modified: 25/08/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     Value = iValue
     
@@ -703,7 +703,7 @@ Public Property Let Max(ByVal NewValue As Long)
 'Last modified: 25/08/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     If NewValue < 1 Then NewValue = 1
     If NewValue <= iMin Then NewValue = iMin + 1
@@ -722,7 +722,7 @@ Public Property Get Max() As Long
 'Last modified: 25/08/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     Max = iMax
     
@@ -734,7 +734,7 @@ Public Property Let Min(ByVal NewValue As Long)
 'Last modified: 25/08/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     If NewValue >= iMax Then NewValue = Max - 1
     If NewValue < 0 Then NewValue = 0
@@ -753,7 +753,7 @@ Public Property Get Min() As Long
 'Last modified: 25/08/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     Min = iMin
     

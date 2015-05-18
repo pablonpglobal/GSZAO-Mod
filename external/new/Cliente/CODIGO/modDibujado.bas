@@ -49,7 +49,7 @@ Public Function ArrayToPicture(inArray() As Byte, offset As Long, Size As Long) 
 End Function
 
 Sub DrawGrhtoHdc(ByVal desthDC As Long, ByVal grh_index As Integer, ByRef SourceRect As RECT, ByRef destRect As RECT)
-    On Error Resume Next
+    'on error resume next
     
     Dim file_path As String
     Dim src_x As Integer
@@ -101,7 +101,7 @@ End Sub
 'Author: ^[GS]^
 'Last Modification: 14/09/2012 - ^[GS]^
 '***************************************************
-'    On Error Resume Next
+'    'on error resume next
 '
 '    If iMap <= 0 Then Exit Sub
 '

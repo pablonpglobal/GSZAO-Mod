@@ -153,7 +153,7 @@ Option Explicit
 Private clsFormulario As clsFormMovementManager
 
 Private Sub cAceptar_Click()
-    On Error Resume Next
+    'on error resume next
     Call Audio.PlayWave(SND_CLICK)
     Unload Me
     frmMain.SetFocus

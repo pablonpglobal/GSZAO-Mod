@@ -495,7 +495,7 @@ Private Sub tEfectos_Timer()
 End Sub
 
 Private Sub Form_Load()
-On Error Resume Next
+'on error resume next
     
     ' Handles Form movement (drag and drop).
     Set clsFormulario = New clsFormMovementManager

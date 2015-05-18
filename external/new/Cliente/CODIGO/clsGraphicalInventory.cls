@@ -327,7 +327,7 @@ Public Sub ClearAllSlots() ' 0.13.3
 'Last Modify Date: 23/11/2011 - ^[GS]^
 'Clear All Slots.
 '***************************************************
-On Error Resume Next
+'on error resume next
 
     Dim slot As Long
     For slot = 1 To Me.MaxObjs
@@ -411,7 +411,7 @@ Private Function ClickItem(ByVal X As Long, ByVal Y As Long) As Long
 End Function
 
 Private Sub DrawInventory()
-On Error Resume Next
+'on error resume next
 '***************************************************
 'Author: Juan Martín Sotuyo Dodero (Maraxus)
 'Last Modify Date: 02/05/2013 - ^[GS]^
@@ -514,7 +514,7 @@ Public Sub DrawInv()
     If GetTickCount - LastRender > 56 Then ' GSZAO
         LastRender = GetTickCount
         DoEvents
-        Call DrawInventory
+        'Call DrawInventory
     End If
     
 End Sub
@@ -619,7 +619,7 @@ Private Sub InventoryWindow_MouseMove(Button As Integer, Shift As Integer, X As 
         
     If Button = vbRightButton Then
         
-        Call DrawInventory
+        'Call DrawInventory
         
     Else
 
@@ -642,7 +642,7 @@ Private Sub InventoryWindow_MouseMove(Button As Integer, Shift As Integer, X As 
     
     End If
     
-    Call DrawInventory
+    'Call DrawInventory
 End Sub
 
 Private Sub InventoryWindow_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)

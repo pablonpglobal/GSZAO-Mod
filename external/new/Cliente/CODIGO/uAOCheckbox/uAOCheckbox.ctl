@@ -108,7 +108,7 @@ Private Sub bCheckbox_Click()
 'Last modified: 23/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     If isEnabled Then
         isChecked = Not isChecked
@@ -123,7 +123,7 @@ Private Sub bCheckbox_DblClick()
 'Last modified: 23/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     If isEnabled Then
         Call bCheckbox_MouseDown(1, 0, 0, 0)
@@ -137,7 +137,7 @@ Private Sub bCheckbox_GotFocus()
 'Last modified: 23/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     If isOver = False And isEnabled Then
         isFocus = True
@@ -152,7 +152,7 @@ Private Sub bCheckbox_KeyDown(KeyCode As Integer, Shift As Integer)
 'Last modified: 23/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     RaiseEvent KeyDown(KeyCode, Shift)
     lastKeyDown = KeyCode
@@ -173,7 +173,7 @@ Private Sub bCheckbox_KeyPress(KeyAscii As Integer)
 'Last modified: 23/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     RaiseEvent KeyPress(KeyAscii)
 End Sub
@@ -184,7 +184,7 @@ Private Sub bCheckbox_KeyUp(KeyCode As Integer, Shift As Integer)
 'Last modified: 23/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     RaiseEvent KeyUp(KeyCode, Shift)
     If (KeyCode = 32) And (lastKeyDown = 32) Then
@@ -202,7 +202,7 @@ Private Sub bCheckbox_LostFocus()
 'Last modified: 23/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     If isOver = False And isEnabled Then
         isFocus = False
@@ -217,7 +217,7 @@ Private Sub bCheckbox_MouseDown(Button As Integer, Shift As Integer, X As Single
 'Last modified: 23/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     RaiseEvent MouseDown(Button, Shift, X, Y)
     lastButton = Button
@@ -233,7 +233,7 @@ Private Sub bCheckbox_MouseMove(Button As Integer, Shift As Integer, X As Single
 'Last modified: 23/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     RaiseEvent MouseMove(Button, Shift, X, Y)
     bCheckbox.SetFocus
@@ -260,7 +260,7 @@ Private Sub bCheckbox_MouseUp(Button As Integer, Shift As Integer, X As Single, 
 'Last modified: 23/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     RaiseEvent MouseUp(Button, Shift, X, Y)
     If lastButton <> 2 And isEnabled Then
@@ -276,7 +276,7 @@ Private Sub MouseO_Timer()
 'Last modified: 23/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     If Not isMouseOver Then
         isOver = False
@@ -294,7 +294,7 @@ Private Function isMouseOver() As Boolean
 'Last modified: 23/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     Dim pt As POINTAPI
     GetCursorPos pt
@@ -308,7 +308,7 @@ Private Sub ReloadTextures()
 'Last modified: 31/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     Set iCheckBox = iCHK.Picture
     
@@ -328,7 +328,7 @@ Private Sub Redraw(Optional Force As Boolean = False)
 'Last modified: 31/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     Dim szCheckBoxX As Integer
     
@@ -400,7 +400,7 @@ Private Sub UserControl_AccessKeyPress(KeyAscii As Integer)
 'Last modified: 23/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     lastButton = 1
     Call UserControl_Click
@@ -413,7 +413,7 @@ Private Sub UserControl_AmbientChanged(PropertyName As String)
 'Last modified: 23/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
 
     Call Redraw(True)
 End Sub
@@ -424,7 +424,7 @@ Private Sub UserControl_Click()
 'Last modified: 23/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     RaiseEvent Click
 End Sub
@@ -435,7 +435,7 @@ Private Sub UserControl_DblClick()
 'Last modified: 23/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     RaiseEvent DblClick
 End Sub
@@ -446,7 +446,7 @@ Private Sub UserControl_KeyPress(KeyAscii As Integer)
 'Last modified: 23/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     RaiseEvent KeyPress(KeyAscii)
 End Sub
@@ -457,7 +457,7 @@ Private Sub UserControl_Initialize()
 'Last modified: 23/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     Call ReloadTextures
     isEnabled = True
@@ -471,7 +471,7 @@ Private Sub UserControl_InitProperties()
 'Last modified: 01/08/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     lastStat = 0
     isEnabled = True
@@ -488,7 +488,7 @@ Private Sub UserControl_KeyDown(KeyCode As Integer, Shift As Integer)
 'Last modified: 23/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     RaiseEvent KeyDown(KeyCode, Shift)
 End Sub
@@ -499,7 +499,7 @@ Private Sub UserControl_KeyUp(KeyCode As Integer, Shift As Integer)
 'Last modified: 23/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     RaiseEvent KeyUp(KeyCode, Shift)
 End Sub
@@ -510,7 +510,7 @@ Private Sub UserControl_MouseDown(Button As Integer, Shift As Integer, X As Sing
 'Last modified: 23/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     RaiseEvent MouseDown(Button, Shift, X, Y)
 End Sub
@@ -521,7 +521,7 @@ Private Sub UserControl_MouseMove(Button As Integer, Shift As Integer, X As Sing
 'Last modified: 23/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     RaiseEvent MouseMove(Button, Shift, X, Y)
 End Sub
@@ -532,7 +532,7 @@ Private Sub UserControl_MouseUp(Button As Integer, Shift As Integer, X As Single
 'Last modified: 23/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     RaiseEvent MouseUp(Button, Shift, X, Y)
 End Sub
@@ -543,7 +543,7 @@ Private Sub UserControl_Paint()
 'Last modified: 03/08/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     Call Redraw(True)
     isOver = False
@@ -555,7 +555,7 @@ Private Sub UserControl_Show()
 'Last modified: 31/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     If iCheckBoxLoaded = True Then
         UserControl.Width = szCheckBoxW
@@ -578,7 +578,7 @@ Private Sub UserControl_Resize()
 'Last modified: 01/08/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     If iCheckBoxLoaded = True Then
         UserControl.Width = szCheckBoxW
@@ -607,7 +607,7 @@ Private Sub UserControl_ReadProperties(PropBag As PropertyBag)
 'Last modified: 01/08/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
 
     With PropBag
         isEnabled = .ReadProperty("ENAB", True)
@@ -626,7 +626,7 @@ Private Sub UserControl_WriteProperties(PropBag As PropertyBag)
 'Last modified: 01/08/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     With PropBag
         Call .WriteProperty("CHCK", isChecked)
@@ -641,7 +641,7 @@ Public Property Get Enabled() As Boolean
 'Last modified: 23/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     Enabled = isEnabled
 End Property
@@ -652,7 +652,7 @@ Public Property Let Enabled(ByVal NewValue As Boolean)
 'Last modified: 23/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     isEnabled = NewValue
     isOver = False
@@ -668,7 +668,7 @@ Public Property Get Checked() As Boolean
 'Last modified: 23/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     Checked = isChecked
 End Property
@@ -679,7 +679,7 @@ Public Property Let Checked(ByVal NewValue As Boolean)
 'Last modified: 23/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
     
     isChecked = NewValue
     
@@ -693,7 +693,7 @@ Public Property Get Picture() As StdPicture
 'Last modified: 23/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
 
     Set Picture = iCHK.Picture
 
@@ -705,7 +705,7 @@ Public Property Set Picture(ByVal newPic As StdPicture)
 'Last modified: 23/07/2012
 '*************************************************
 
-On Error Resume Next
+'on error resume next
 
     iCHK.Picture = newPic
     Call ReloadTextures

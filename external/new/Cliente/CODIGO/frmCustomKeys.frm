@@ -767,7 +767,7 @@ Private Sub Form_Load()
 End Sub
 
 Private Sub ShowConfig()
-On Error Resume Next
+'on error resume next
 
     Dim i As Long
 
@@ -780,7 +780,7 @@ End Sub
 
 
 Private Sub Text1_KeyDown(Index As Integer, KeyCode As Integer, Shift As Integer)
-On Error Resume Next
+'on error resume next
 
     Dim i As Long
     

@@ -68,7 +68,7 @@ Public Function GetRawName(ByRef sName As String) As String
 End Function
 
 Sub CargarAnimArmas()
-On Error Resume Next
+'on error resume next
 
     Dim loopC As Long
     Dim ArcH As String
@@ -88,7 +88,7 @@ On Error Resume Next
 End Sub
 
 Sub CargarColores()
-On Error Resume Next
+'on error resume next
     Dim archivoC As String
     
     archivoC = sPathINIT & "colores.dat"
@@ -136,7 +136,7 @@ On Error Resume Next
 End Sub
 
 Sub CargarAnimEscudos()
-On Error Resume Next
+'on error resume next
 
     Dim loopC As Long
     Dim ArcH As String
@@ -282,7 +282,7 @@ Function CheckUserData(ByVal checkemail As Boolean) As Boolean
 End Function
 
 Sub UnloadAllForms()
-On Error Resume Next
+'on error resume next
 
     Dim mifrm As Form
     
@@ -736,7 +736,7 @@ errorH:
 End Sub
 
 Public Sub InitServersList()
-On Error Resume Next
+'on error resume next
     Dim NumServers As Integer
     Dim i As Integer
     Dim Cont As Integer

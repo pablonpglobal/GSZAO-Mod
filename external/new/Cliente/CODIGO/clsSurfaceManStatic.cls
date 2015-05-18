@@ -147,7 +147,7 @@ Private Sub LoadSurfaces(ByVal ResourcePath As String)
 'Last Modify Date: 12/02/2007
 'Loads all surfaces in random order and then sorts them
 '**************************************************************
-On Error Resume Next
+'on error resume next
     Dim surfaceIndex As Long
     Dim bmpInfo As BITMAPINFO
     Dim data() As Byte

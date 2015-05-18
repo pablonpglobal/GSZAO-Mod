@@ -197,13 +197,19 @@ Private Sub MiniMap_ColorSet()
     
     If frmMain.MouseX > Minimap.X And frmMain.MouseY > Minimap.Y And frmMain.MouseX < Minimap.X + 100 And frmMain.MouseY < Minimap.Y + 100 Then
         If AlphaMiniMap > 0 Then
+            If AlphaMiniMap - timerTicksPerFrame * 25 > 0 Then
                 AlphaMiniMap = AlphaMiniMap - timerTicksPerFrame * 25
-                If AlphaMiniMap < 10 Then AlphaMiniMap = 0
+            Else
+                AlphaMiniMap = 0
+            End If
         End If
     Else
         If AlphaMiniMap < DefaultAlphaMiniMap Then
-                AlphaMiniMap = AlphaMiniMap + timerTicksPerFrame * 25
-                If AlphaMiniMap > DefaultAlphaMiniMap Then AlphaMiniMap = DefaultAlphaMiniMap
+                If AlphaMiniMap + timerTicksPerFrame * 25 < DefaultAlphaMiniMap Then
+                    AlphaMiniMap = AlphaMiniMap + timerTicksPerFrame * 25
+                Else
+                    AlphaMiniMap = DefaultAlphaMiniMap
+                End If
         End If
     End If
     

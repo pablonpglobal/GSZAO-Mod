@@ -263,7 +263,7 @@ Public Type Char
     Newbie As Byte ' GSZAO
     bType As Byte ' GSZAO
     
-    nombre As String
+    Nombre As String
     
     scrollDirectionX As Integer
     scrollDirectionY As Integer
@@ -704,13 +704,13 @@ Sub ConvertCPtoTP(ByVal viewPortX As Integer, ByVal viewPortY As Integer, ByRef 
 '******************************************
 'Converts where the mouse is in the main window to a tile position. MUST be called eveytime the mouse moves.
 '******************************************
-On Error Resume Next
+'on error resume next
     tX = UserPos.X + viewPortX \ TilePixelWidth - WindowTileWidth \ 2
     tY = UserPos.Y + viewPortY \ TilePixelHeight - WindowTileHeight \ 2
 End Sub
 
 Sub MakeChar(ByVal CharIndex As Integer, ByVal Body As Integer, ByVal Head As Integer, ByVal Heading As Byte, ByVal X As Integer, ByVal Y As Integer, ByVal Arma As Integer, ByVal Escudo As Integer, ByVal Casco As Integer)
-On Error Resume Next
+'on error resume next
     'Apuntamos al ultimo Char
     If CharIndex > LastChar Then LastChar = CharIndex
     
@@ -763,7 +763,7 @@ Sub ResetCharInfo(ByVal CharIndex As Integer)
                
         .Moving = 0
         .muerto = False
-        .nombre = vbNullString
+        .Nombre = vbNullString
         .pie = False
         .Pos.X = 0
         .Pos.Y = 0
@@ -775,7 +775,7 @@ Sub EraseChar(ByVal CharIndex As Integer)
 '*****************************************************************
 'Erases a character from CharList and map
 '*****************************************************************
-On Error Resume Next
+'on error resume next
     CharList(CharIndex).active = 0
     
     'Update lastchar
@@ -830,7 +830,7 @@ Sub MoveCharbyHead(ByVal CharIndex As Integer, ByVal nHeading As E_Heading)
 '*****************************************************************
 'Starts the movement of a character in nHeading direction
 '*****************************************************************
-On Error Resume Next
+'on error resume next
 
     Dim addx As Integer
     Dim addy As Integer
@@ -926,7 +926,7 @@ Sub DoPasosFx(ByVal CharIndex As Integer)
 End Sub
 
 Sub MoveCharbyPos(ByVal CharIndex As Integer, ByVal nX As Integer, ByVal nY As Integer)
-On Error Resume Next
+'on error resume next
     Dim X As Integer
     Dim Y As Integer
     Dim addx As Integer
@@ -2055,7 +2055,7 @@ Public Sub DeinitTileEngine()
 'Last Modification: 08/14/07
 'Destroys all DX objects
 '***************************************************
-On Error Resume Next
+'on error resume next
 
         'Set no texture in the device to avoid memory leaks
 
@@ -2086,7 +2086,7 @@ On Error Resume Next
 End Sub
 
 Sub ShowNextFrame(ByVal DisplayFormTop As Integer, ByVal DisplayFormLeft As Integer, ByVal MouseViewX As Integer, ByVal MouseViewY As Integer)
-On Error Resume Next
+'on error resume next
 '***************************************************
 'Author: Arron Perkins
 'Last Modification: 05/09/2012 - ^[GS]^
@@ -2319,9 +2319,9 @@ Private Sub CharRender(ByVal CharIndex As Long, ByVal PixelOffsetX As Integer, B
             End If
             
             'Draw name over head
-            If LenB(.nombre) > 0 Then
+            If LenB(.Nombre) > 0 Then
                 If Nombres And (CfgSiempreNombres = True Or (esGM(UserCharIndex) Or Abs(MouseTileX - .Pos.X) < 2 And (Abs(MouseTileY - .Pos.Y)) < 2)) Then
-                    Pos = getTagPosition(.nombre)
+                    Pos = getTagPosition(.Nombre)
                     'Pos = InStr(.Nombre, "<")
                     'If Pos = 0 Then Pos = Len(.Nombre) + 2
         
@@ -2346,11 +2346,11 @@ Private Sub CharRender(ByVal CharIndex As Long, ByVal PixelOffsetX As Integer, B
                     End If
         
                     'Nick
-                    line = Left$(.nombre, Pos - 2)
+                    line = Left$(.Nombre, Pos - 2)
                     Call DrawText(PixelOffsetX - (Len(line) * 6 / 2) + 14, PixelOffsetY + 30, line, color)
         
                     'Clan
-                    line = mid$(.nombre, Pos)
+                    line = mid$(.Nombre, Pos)
                     Call DrawText(PixelOffsetX - (Len(line) * 6 / 2) + 28, PixelOffsetY + 45, line, color)
                 End If
             End If

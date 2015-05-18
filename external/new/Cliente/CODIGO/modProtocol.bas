@@ -1204,7 +1204,7 @@ Public Sub HandleIncomingData()
 'Last Modification: 18/03/2013 - ^[GS]^
 '
 '***************************************************
-On Error Resume Next
+'on error resume next
 
     Dim Packet As Byte
 

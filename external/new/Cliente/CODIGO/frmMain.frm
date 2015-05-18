@@ -1,8 +1,8 @@
 VERSION 5.00
 Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "RICHTX32.OCX"
-Object = "{48E59290-9880-11CF-9754-00AA00C00908}#1.0#0"; "msinet.ocx"
-Object = "{33101C00-75C3-11CF-A8A0-444553540000}#1.0#0"; "CSWSK32.OCX"
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "mscomctl.OCX"
+Object = "{48E59290-9880-11CF-9754-00AA00C00908}#1.0#0"; "MSINET.OCX"
+Object = "{33101C00-75C3-11CF-A8A0-444553540000}#1.0#0"; "CSWSK32.ocx"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
 Begin VB.Form frmMain 
    BackColor       =   &H00404040&
    BorderStyle     =   0  'None
@@ -337,7 +337,6 @@ Begin VB.Form frmMain
       Left            =   9840
       TabIndex        =   29
       Top             =   7515
-      Visible         =   0   'False
       Width           =   1845
       _ExtentX        =   3254
       _ExtentY        =   318
@@ -553,10 +552,10 @@ Begin VB.Form frmMain
       ENAB            =   -1  'True
       FCOL            =   7314354
       OCOL            =   16777215
-      PICE            =   "frmMain.frx":252AC
-      PICF            =   "frmMain.frx":252C8
-      PICH            =   "frmMain.frx":252E4
-      PICV            =   "frmMain.frx":25300
+      PICE            =   "frmMain.frx":252AB
+      PICF            =   "frmMain.frx":252C7
+      PICH            =   "frmMain.frx":252E3
+      PICV            =   "frmMain.frx":252FF
       BeginProperty FONT {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Arial"
          Size            =   9
@@ -579,10 +578,10 @@ Begin VB.Form frmMain
       ENAB            =   -1  'True
       FCOL            =   7314354
       OCOL            =   16777215
-      PICE            =   "frmMain.frx":2531C
-      PICF            =   "frmMain.frx":25338
-      PICH            =   "frmMain.frx":25354
-      PICV            =   "frmMain.frx":25370
+      PICE            =   "frmMain.frx":2531B
+      PICF            =   "frmMain.frx":25337
+      PICH            =   "frmMain.frx":25353
+      PICV            =   "frmMain.frx":2536F
       BeginProperty FONT {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Arial"
          Size            =   9
@@ -605,10 +604,10 @@ Begin VB.Form frmMain
       ENAB            =   -1  'True
       FCOL            =   7314354
       OCOL            =   16777215
-      PICE            =   "frmMain.frx":2538C
-      PICF            =   "frmMain.frx":253A8
-      PICH            =   "frmMain.frx":253C4
-      PICV            =   "frmMain.frx":253E0
+      PICE            =   "frmMain.frx":2538B
+      PICF            =   "frmMain.frx":253A7
+      PICH            =   "frmMain.frx":253C3
+      PICV            =   "frmMain.frx":253DF
       BeginProperty FONT {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Arial"
          Size            =   8.25
@@ -631,10 +630,10 @@ Begin VB.Form frmMain
       ENAB            =   -1  'True
       FCOL            =   7314354
       OCOL            =   16777215
-      PICE            =   "frmMain.frx":253FC
-      PICF            =   "frmMain.frx":25418
-      PICH            =   "frmMain.frx":25434
-      PICV            =   "frmMain.frx":25450
+      PICE            =   "frmMain.frx":253FB
+      PICF            =   "frmMain.frx":25417
+      PICH            =   "frmMain.frx":25433
+      PICV            =   "frmMain.frx":2544F
       BeginProperty FONT {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Arial"
          Size            =   12
@@ -657,10 +656,10 @@ Begin VB.Form frmMain
       ENAB            =   -1  'True
       FCOL            =   7314354
       OCOL            =   16777215
-      PICE            =   "frmMain.frx":2546C
-      PICF            =   "frmMain.frx":25488
-      PICH            =   "frmMain.frx":254A4
-      PICV            =   "frmMain.frx":254C0
+      PICE            =   "frmMain.frx":2546B
+      PICF            =   "frmMain.frx":25487
+      PICH            =   "frmMain.frx":254A3
+      PICV            =   "frmMain.frx":254BF
       BeginProperty FONT {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Arial"
          Size            =   12
@@ -676,7 +675,6 @@ Begin VB.Form frmMain
       Left            =   8760
       TabIndex        =   30
       Top             =   6720
-      Visible         =   0   'False
       Width           =   2925
       _ExtentX        =   5159
       _ExtentY        =   397
@@ -699,7 +697,6 @@ Begin VB.Form frmMain
       Left            =   8760
       TabIndex        =   32
       Top             =   7080
-      Visible         =   0   'False
       Width           =   2925
       _ExtentX        =   5159
       _ExtentY        =   397
@@ -722,7 +719,6 @@ Begin VB.Form frmMain
       Left            =   9840
       TabIndex        =   33
       Top             =   7815
-      Visible         =   0   'False
       Width           =   1845
       _ExtentX        =   3254
       _ExtentY        =   318
@@ -744,7 +740,6 @@ Begin VB.Form frmMain
       Left            =   9840
       TabIndex        =   34
       Top             =   8130
-      Visible         =   0   'False
       Width           =   1845
       _ExtentX        =   3254
       _ExtentY        =   318
@@ -766,7 +761,6 @@ Begin VB.Form frmMain
       Left            =   9015
       TabIndex        =   35
       Top             =   1140
-      Visible         =   0   'False
       Width           =   2385
       _ExtentX        =   4207
       _ExtentY        =   397
@@ -795,10 +789,10 @@ Begin VB.Form frmMain
       ENAB            =   -1  'True
       FCOL            =   7314354
       OCOL            =   16777215
-      PICE            =   "frmMain.frx":254DC
-      PICF            =   "frmMain.frx":254F8
-      PICH            =   "frmMain.frx":25514
-      PICV            =   "frmMain.frx":25530
+      PICE            =   "frmMain.frx":254DB
+      PICF            =   "frmMain.frx":254F7
+      PICH            =   "frmMain.frx":25513
+      PICV            =   "frmMain.frx":2552F
       BeginProperty FONT {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Arial"
          Size            =   12.75
@@ -1139,7 +1133,7 @@ Public Sub RequestAsignarSkills()
     Loop
     LlegaronSkills = False
     For i = 1 To NUMSKILLS
-        frmSkills.text1(i).Caption = UserSkills(i)
+        frmSkills.Text1(i).Caption = UserSkills(i)
     Next i
     Alocados = SkillPoints
     frmSkills.puntos.Caption = SkillPoints
@@ -1197,7 +1191,7 @@ Private Sub cHechizos_Click()
     ' Activo controles de hechizos
     picSpell.Visible = True
     ' Desactivo controles de inventario
-    picInv.Visible = False
+    PicInv.Visible = False
     Spells.RenderSpells
     cHechizos.Enabled = False
     cInventario.Enabled = True
@@ -1215,7 +1209,7 @@ End Sub
 Private Sub cInventario_Click()
     Call Audio.PlayWave(SND_CLICK)
     ' Activo controles de inventario
-    picInv.Visible = True
+    PicInv.Visible = True
     ' Desactivo controles de hechizo
     picSpell.Visible = False
     Inventario.DrawInv
@@ -1420,7 +1414,7 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
 'Autor: Unknown
 'Last Modification: 11/08/2014 - ^[GS]^
 '***************************************************
-On Error Resume Next
+'on error resume next
     
     If Not AntiSendKey Then Exit Sub ' GSZAO
     If (Not SendTxt.Visible) And (Not SendCMSTXT.Visible) Then
@@ -1677,9 +1671,9 @@ On Error Resume Next
 End Sub
 
 Private Sub Form_Paint()
-On Error Resume Next
+'on error resume next
 ' GSZ-AO - Dibujamos los inventarios ;)
-        If picInv.Visible Then
+        If PicInv.Visible Then
             'picInv.SetFocus
             Call Inventario.DrawInv
         ElseIf picSpell.Visible Then
@@ -1804,12 +1798,12 @@ Private Sub StopDragInv()
     UsandoDrag = False
     If CurrentCursor <> cur_Action Then
         Call ChangeCursorMain(cur_Normal)
-        frmMain.picInv.MousePointer = vbNormal
+        frmMain.PicInv.MousePointer = vbNormal
     End If
 End Sub
 
 Private Sub MainViewPic_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
-On Error Resume Next
+'on error resume next
 
     MouseX = X
     MouseY = Y
@@ -1969,9 +1963,9 @@ Private Sub PicInv_MouseMove(Button As Integer, Shift As Integer, X As Single, Y
                     
                     UsandoDrag = True
                     If frmMain.ImageList1.ListImages.Count <> 0 Then
-                        Set picInv.MouseIcon = frmMain.ImageList1.ListImages(poss).ExtractIcon
+                        Set PicInv.MouseIcon = frmMain.ImageList1.ListImages(poss).ExtractIcon
                     End If
-                    frmMain.picInv.MousePointer = vbCustom
+                    frmMain.PicInv.MousePointer = vbCustom
                     Exit Sub
                     
                 End If
@@ -2057,6 +2051,7 @@ Private Sub picSpell_MouseMove(Button As Integer, Shift As Integer, X As Single,
                             frmMain.ImageList1.ListImages.Add , CStr("g" & Spells.GrhIndex(Spells.SelectedItem)), Picture:=bmpData
                             poss = frmMain.ImageList1.ListImages.Count
                             Set bmpData = Nothing
+                            Debug.Print "ASD"
                         End If
                     End If
                     
@@ -2150,8 +2145,8 @@ Private Sub SendTxt_KeyUp(KeyCode As Integer, Shift As Integer)
         KeyCode = 0
         SendTxt.Visible = False
         
-        If picInv.Visible Then
-            picInv.SetFocus
+        If PicInv.Visible Then
+            PicInv.SetFocus
         Else
             picSpell.SetFocus
         End If
@@ -2226,7 +2221,7 @@ End Sub
 ''''''''''''''''''''''''''''''''''''''
 
 Private Sub TrainingMacro_Timer()
-On Error Resume Next
+'on error resume next
 
     If Not picSpell.Visible Or Spells.SpellSelectedItem = 0 Then ' GSZAO
         DesactivarMacroHechizos
@@ -2423,7 +2418,7 @@ End Sub
 
 Public Sub picInv_dragDone(ByVal originalSlot As Integer, ByVal newSlot As Integer)
     Call modProtocol.WriteMoveItem(originalSlot, newSlot, eMoveType.Inventory)
-    frmMain.picInv.MousePointer = vbNormal
+    frmMain.PicInv.MousePointer = vbNormal
 End Sub
 
 Private Sub picInv_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
@@ -2436,7 +2431,7 @@ Private Sub picInv_MouseUp(Button As Integer, Shift As Integer, X As Single, Y A
 End Sub
 
 Private Sub RecTxt_Change()
-On Error Resume Next   'el .SetFocus causaba errores al salir y volver a entrar
+'on error resume next   'el .SetFocus causaba errores al salir y volver a entrar
     If Not modApplication.IsAppActive() Then Exit Sub
     
     If SendTxt.Visible Then
@@ -2448,8 +2443,8 @@ On Error Resume Next   'el .SetFocus causaba errores al salir y volver a entrar
         (Not frmEstadisticas.Visible) And (Not frmCantidad.Visible) And (Not MirandoParty) And _
         (Not frmCustomKeys.Visible) Then
          
-        If picInv.Visible Then
-            picInv.SetFocus
+        If PicInv.Visible Then
+            PicInv.SetFocus
         ElseIf picSpell.Visible Then
             picSpell.SetFocus
         End If
@@ -2457,8 +2452,8 @@ On Error Resume Next   'el .SetFocus causaba errores al salir y volver a entrar
 End Sub
 
 Private Sub RecTxt_KeyDown(KeyCode As Integer, Shift As Integer)
-    If picInv.Visible Then
-        picInv.SetFocus
+    If PicInv.Visible Then
+        PicInv.SetFocus
     Else
         picSpell.SetFocus
     End If
@@ -2518,8 +2513,8 @@ Private Sub SendCMSTXT_KeyUp(KeyCode As Integer, Shift As Integer)
         KeyCode = 0
         Me.SendCMSTXT.Visible = False
         
-        If picInv.Visible Then
-            picInv.SetFocus
+        If PicInv.Visible Then
+            PicInv.SetFocus
         Else
             picSpell.SetFocus
         End If
@@ -2677,8 +2672,8 @@ If tX >= MinXBorder And tY >= MinYBorder And _
             M.SetMenuId 1
             M.ListaInit 2, False
             
-            If LenB(CharList(MapData(tX, tY).CharIndex).nombre) <> 0 Then
-                M.ListaSetItem 0, CharList(MapData(tX, tY).CharIndex).nombre, True
+            If LenB(CharList(MapData(tX, tY).CharIndex).Nombre) <> 0 Then
+                M.ListaSetItem 0, CharList(MapData(tX, tY).CharIndex).Nombre, True
             Else
                 M.ListaSetItem 0, "<NPC>", True
             End If

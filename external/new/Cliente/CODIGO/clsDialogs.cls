@@ -130,20 +130,20 @@ Private Function BinarySearch(ByVal CharIndex As Integer) As Integer
 'Returns the index of the dialog in the list, or the negation
 'of the position were it should be if not found (for binary insertion)
 '**************************************************************
-    Dim min As Long
-    Dim max As Long
+    Dim Min As Long
+    Dim Max As Long
     Dim mid As Long
     
-    min = 0
-    max = dialogCount - 1
+    Min = 0
+    Max = dialogCount - 1
     
-    Do While min <= max
-        mid = (min + max) \ 2
+    Do While Min <= Max
+        mid = (Min + Max) \ 2
         
         If dialogs(mid).CharIndex < CharIndex Then
-            min = mid + 1
+            Min = mid + 1
         ElseIf dialogs(mid).CharIndex > CharIndex Then
-            max = mid - 1
+            Max = mid - 1
         Else
             'We found it
             BinarySearch = mid
@@ -153,7 +153,7 @@ Private Function BinarySearch(ByVal CharIndex As Integer) As Integer
     
     'Not found, return the negation of the position where it should be
     '(all higher values are to the right of the list and lower values are to the left)
-    BinarySearch = Not min
+    BinarySearch = Not Min
 End Function
 
 ''
@@ -220,7 +220,7 @@ Private Function FormatChat(ByRef Chat As String) As String()
 '**************************************************************
     Dim word As String
     Dim curPos As Long
-    Dim Length As Long
+    Dim length As Long
     Dim acumLength As Long
     Dim lineLength As Long
     Dim wordLength As Long
@@ -230,13 +230,13 @@ Private Function FormatChat(ByRef Chat As String) As String()
     'Initialize variables
     curLine = 0
     curPos = 1
-    Length = Len(Chat)
+    length = Len(Chat)
     acumLength = 0
     lineLength = -1
     ReDim chatLines(FieldCount(Chat, 32)) As String
     
     'Start formating
-    Do While acumLength < Length
+    Do While acumLength < length
         word = ReadField(curPos, Chat, 32)
         
         wordLength = Len(word)
@@ -270,8 +270,8 @@ Private Function FormatChat(ByRef Chat As String) As String()
     Loop
     
     ' If it's only one line, center text
-    If curLine = 0 And Length < MAX_LENGTH Then
-        chatLines(curLine) = String((MAX_LENGTH - Length) \ 2 + 1, " ") & chatLines(curLine)
+    If curLine = 0 And length < MAX_LENGTH Then
+        chatLines(curLine) = String((MAX_LENGTH - length) \ 2 + 1, " ") & chatLines(curLine)
     End If
     
     'Resize array to fit
@@ -330,7 +330,7 @@ Public Sub Render()
     Dim offset As Integer
     Dim removedDialogs As Long
     
-    On Error Resume Next
+    'on error resume next
     
     For i = 0 To dialogCount - 1
         'Decrease index to prevent jumping over a dialog
@@ -356,7 +356,7 @@ Public Sub Render()
                     removedDialogs = removedDialogs + 1
                 End If
             ElseIf .renderable Then
-                If .transition > 20 Then
+                If .transition > timerElapsedTime * 0.5 Then
                     .transition = .transition - timerElapsedTime * 0.5
                 Else
                     .transition = 0
