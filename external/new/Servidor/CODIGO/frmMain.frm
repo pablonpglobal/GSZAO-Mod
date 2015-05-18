@@ -1,5 +1,6 @@
 VERSION 5.00
 Object = "{48E59290-9880-11CF-9754-00AA00C00908}#1.0#0"; "MSINET.OCX"
+Object = "{248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0"; "MSWINSCK.OCX"
 Begin VB.Form frmMain 
    BackColor       =   &H00101010&
    BorderStyle     =   1  'Fixed Single
@@ -27,6 +28,13 @@ Begin VB.Form frmMain
    ScaleWidth      =   9855
    StartUpPosition =   2  'CenterScreen
    WindowState     =   1  'Minimized
+   Begin MSWinsockLib.Winsock wskListen 
+      Left            =   2040
+      Top             =   2160
+      _ExtentX        =   741
+      _ExtentY        =   741
+      _Version        =   393216
+   End
    Begin VB.Timer TimerSeg 
       Interval        =   1000
       Left            =   1200
@@ -234,6 +242,14 @@ Begin VB.Form frmMain
       TabIndex        =   11
       Top             =   2760
       Width           =   4455
+   End
+   Begin MSWinsockLib.Winsock wskClient 
+      Index           =   0
+      Left            =   2520
+      Top             =   2160
+      _ExtentX        =   741
+      _ExtentY        =   741
+      _Version        =   393216
    End
    Begin VB.Label Record 
       Alignment       =   2  'Center
@@ -654,7 +670,7 @@ Exit Sub
 
 errhand:
 
-Call LogError("Error en Timer Auditoria. Err: " & Err.description & " - " & Err.Number)
+Call LogError("Error en Timer Auditoria. Err: " & err.Description & " - " & err.Number)
 Resume Next
 
 End Sub
@@ -793,7 +809,7 @@ On Error GoTo ErrHandler
     Exit Sub
     
 ErrHandler:
-    Call LogError("Error en TimerAutoSave Nro." & Err.Number & ": " & Err.description)
+    Call LogError("Error en TimerAutoSave Nro." & err.Number & ": " & err.Description)
     Resume Next
     
 End Sub
@@ -865,7 +881,7 @@ Private Sub Command5_Click()
 End Sub
 
 Private Sub Form_Load()
-#If SocketType = 1 Then
+#If SocketType = 1 Or SocketType = 2 Then
     mnuReiniciarSock.Visible = True
     mnuReiniciarListen.Visible = True
 #End If
@@ -929,6 +945,8 @@ Call QuitarIconoSystray
 
 #If SocketType = 1 Then
     Call LimpiaWsApi
+#ElseIf SocketType = 2 Then
+    wskListen.Close
 #End If
 
 Dim LoopC As Integer
@@ -1111,7 +1129,7 @@ On Error GoTo hayerror
 Exit Sub
 
 hayerror:
-    LogError ("Error en GameTimer: " & Err.description & " UserIndex = " & iUserIndex)
+    LogError ("Error en GameTimer: " & err.Description & " UserIndex = " & iUserIndex)
 End Sub
 
 Private Sub mnuAdmins_Click()
@@ -1124,8 +1142,17 @@ If MsgBox("¡ATENCIÓN!" & vbCrLf & "El servidor se cerrará SIN GUARDAR los cambio
     For Each f In Forms
         Unload f
     Next
+    
+    #If SocketType = 1 Then
     If SockListen >= 0 Then Call apiclosesocket(SockListen)
     Call LimpiaWsApi ' GSZAO, cerramos los sockets con seguridad...
+    #Else
+    wskListen.Close
+    Dim i As Long
+    For i = 1 To LastUser
+        Call wskClient(i).Close
+    Next i
+    #End If
 End If
 End Sub
 
@@ -1141,8 +1168,16 @@ If MsgBox("¿Está seguro que desea hacer un WorldSave, guardar los personajes y a
     Call GuardarUsuarios
     'Chauuu
     Unload frmMain
+    #If SocketType = 1 Then
     If SockListen >= 0 Then Call apiclosesocket(SockListen)
     Call LimpiaWsApi ' GSZAO, cerramos los sockets con seguridad...
+    #Else
+    wskListen.Close
+    Dim i As Long
+    For i = 1 To LastUser
+        Call wskClient(i).Close
+    Next i
+    #End If
 End If
 End Sub
 
@@ -1179,6 +1214,8 @@ If MsgBox("¿Está seguro que desea cargar el último backup del mundo?", vbYesNo, 
     
     #If SocketType = 1 Then
     Call apiclosesocket(SockListen)
+    #ElseIf SocketType = 2 Then
+    wskListen.Close
     #End If
     
     Dim LoopC As Integer
@@ -1200,6 +1237,10 @@ If MsgBox("¿Está seguro que desea cargar el último backup del mundo?", vbYesNo, 
     
     #If SocketType = 1 Then
     SockListen = ListenForConnect(iniPuerto, hWndMsg, "")
+    #ElseIf SocketType = 2 Then
+    wskListen.Close
+    wskListen.LocalPort = iniPuerto
+    wskListen.listen
     #End If
     
     If frmMain.Visible Then frmMain.txStatus.Text = "Escuchando conexiones entrantes ..."
@@ -1330,6 +1371,10 @@ Private Sub mnuReiniciarListen_Click()
     
     'Inicia el socket de escucha
     SockListen = ListenForConnect(iniPuerto, hWndMsg, "")
+#ElseIf SocketType = 2 Then
+    wskListen.Close
+    wskListen.LocalPort = iniPuerto
+    wskListen.listen
 #End If
 End Sub
 
@@ -1338,7 +1383,7 @@ Private Sub mnuReiniciarRespawn_Click()
 End Sub
 
 Private Sub mnuReiniciarSock_Click()
-#If SocketType = 1 Then
+#If SocketType = 1 Or SocketType = 2 Then
 
 If MsgBox("¿Está seguro que desea reiniciar los sockets? Se cerrarán todas las conexiones activas.", vbYesNo, "Reiniciar Sockets") = vbYes Then
     Call WSApiReiniciarSockets
@@ -1494,7 +1539,7 @@ On Error GoTo ErrHandler:
 Exit Sub
 
 ErrHandler:
-    LogError ("Error en packetResend - Error: " & Err.Number & " - Desc: " & Err.description)
+    LogError ("Error en packetResend - Error: " & err.Number & " - Desc: " & err.Description)
     Resume Next
 End Sub
 
@@ -1631,7 +1676,7 @@ On Error GoTo ErrHandler
 
 Exit Sub
 ErrHandler:
-    Call LogError("tEfectoLluvia " & Err.Number & ": " & Err.description)
+    Call LogError("tEfectoLluvia " & err.Number & ": " & err.Description)
 End Sub
 
 Private Sub tLluvia_Timer()
@@ -1737,13 +1782,56 @@ On Error GoTo ErrHandler
 Exit Sub
 
 ErrHandler:
-    Call LogError("Error en tPiqueteC_Timer " & Err.Number & ": " & Err.description)
+    Call LogError("Error en tPiqueteC_Timer " & err.Number & ": " & err.Description)
 End Sub
-Private Sub txtChat_Change()
-
-End Sub
-
 Private Sub txtIP_Click()
 Call Clipboard.SetText(txtIP.Caption)
 frmMain.txStatus.Text = "Dirección IP copiada."
 End Sub
+
+
+
+
+
+#If SocketType = 2 Then
+Private Sub wskClient_Close(Index As Integer)
+    Call CloseSocketSL(Index)
+    Call Cerrar_Usuario(Index)
+End Sub
+
+Private Sub wskClient_DataArrival(Index As Integer, ByVal bytesTotal As Long)
+    Dim data() As Byte
+    
+    ReDim data(bytesTotal) As Byte
+    
+    wskClient(Index).GetData data, , bytesTotal
+    EventoSockRead Index, data
+End Sub
+
+Private Sub wskClient_Error(Index As Integer, ByVal Number As Integer, Description As String, ByVal Scode As Long, ByVal Source As String, ByVal HelpFile As String, ByVal HelpContext As Long, CancelDisplay As Boolean)
+    Call LogCriticEvent("Winsock Error: " & Index & " Desc: " & Description)
+    Call CloseSocketSL(Index)
+    Call Cerrar_Usuario(Index)
+End Sub
+Private Sub wskListen_Close()
+    Restart_ListenSocket
+End Sub
+Private Sub wskListen_ConnectionRequest(ByVal requestID As Long)
+On Error GoTo err:
+    Dim NewIndex As Integer
+    NewIndex = NextOpenUser
+
+    Call wskClient(NewIndex).accept(requestID)
+    
+    Call modTCP.Socket_NewConnection(NewIndex, wskClient(NewIndex).RemoteHostIP, wskClient(NewIndex).SocketHandle)
+Exit Sub
+err:
+    Restart_ListenSocket
+    If NewIndex <> 0 Then Call wskClient(NewIndex).Close
+End Sub
+Private Sub Restart_ListenSocket()
+    wskListen.Close
+    wskListen.LocalPort = iniPuerto
+    wskListen.listen
+End Sub
+#End If

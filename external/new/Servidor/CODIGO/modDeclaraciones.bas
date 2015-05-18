@@ -1416,7 +1416,8 @@ Public Type User
     
     fAccion As tFacciones
 
-    ip As String
+    IP As String
+    IPLong As Long
     
     ComUsu As tCOmercioUsuario
     

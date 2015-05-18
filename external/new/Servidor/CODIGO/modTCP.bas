@@ -29,6 +29,104 @@ Attribute VB_Name = "modTCP"
 
 Option Explicit
 
+Public Declare Function inet_addr Lib "wsock32.dll" (ByVal cp As String) As Long
+Public Declare Function inet_ntoa Lib "wsock32.dll" (ByVal inn As Long) As Long
+Public Declare Function send Lib "wsock32.dll" (ByVal S As Long, buf As Any, ByVal buflen As Long, ByVal flags As Long) As Long
+Public Declare Sub MemCopy Lib "kernel32" Alias "RtlMoveMemory" (Dest As Any, Src As Any, ByVal cb&)
+Public Declare Function lstrlen Lib "kernel32" Alias "lstrlenA" (ByVal lpString As Any) As Long
+
+Public Function GetLongIp(ByVal IPS As String) As Long
+    GetLongIp = inet_addr(IPS)
+End Function
+
+Public Function GetAscIP(ByVal inn As Long) As String
+    #If Win32 Then
+        Dim nStr&
+    #Else
+        Dim nStr%
+    #End If
+    Dim lpStr&
+    Dim retString$
+    retString = String(32, 0)
+    lpStr = inet_ntoa(inn)
+    If lpStr Then
+        nStr = lstrlen(lpStr)
+        If nStr > 32 Then nStr = 32
+        MemCopy ByVal retString, ByVal lpStr, nStr
+        retString = Left$(retString, nStr)
+        GetAscIP = retString
+    Else
+        GetAscIP = "255.255.255.255"
+    End If
+End Function
+
+Public Sub Socket_NewConnection(ByVal UserIndex As Integer, ByVal IP As String, ByVal NuevoSock As Long)
+    Dim i As Long
+    Dim IPLong As Long
+    Dim str As String
+    Dim data() As Byte
+    
+    IPLong = GetLongIp(IP)
+    
+    If Not modSecurityIp.IpSecurityAceptarNuevaConexion(IPLong) Then ' 0.13.3
+        Call WSApiCloseSocket(NuevoSock, UserIndex)
+        Exit Sub
+    End If
+    
+    If modSecurityIp.IPSecuritySuperaLimiteConexiones(IPLong) Then ' 0.13.3
+        str = modProtocol.PrepareMessageErrorMsg("Limite de conexiones para su IP alcanzado.")
+        
+        ReDim Preserve data(Len(str) - 1) As Byte
+        
+        data = StrConv(str, vbFromUnicode)
+        
+        Call send(ByVal NuevoSock, data(0), ByVal UBound(data()) + 1, ByVal 0)
+        Call WSApiCloseSocket(NuevoSock, UserIndex)
+        Exit Sub
+    End If
+    
+    If UserIndex <= iniMaxUsuarios Then
+        
+        'Make sure both outgoing and incoming data buffers are clean
+        Call UserList(UserIndex).incomingData.ReadASCIIStringFixed(UserList(UserIndex).incomingData.length)
+        Call UserList(UserIndex).outgoingData.ReadASCIIStringFixed(UserList(UserIndex).outgoingData.length)
+
+        UserList(UserIndex).IP = IP
+        UserList(UserIndex).IPLong = IPLong
+        
+        'Busca si esta banneada la ip
+        For i = 1 To BanIPs.Count
+            If BanIPs.Item(i) = UserList(UserIndex).IP Then
+                'Call apiclosesocket(NuevoSock)
+                Call WriteErrorMsg(UserIndex, "Su IP se encuentra bloqueada en este servidor.")
+                Call FlushBuffer(UserIndex)
+                Call modSecurityIp.IpRestarConexion(UserList(UserIndex).IPLong)
+                Call WSApiCloseSocket(NuevoSock, UserIndex)
+                Exit Sub
+            End If
+        Next i
+         
+        If UserIndex > LastUser Then LastUser = UserIndex
+        
+        UserList(UserIndex).flags.CaptchaKey = 0
+        UserList(UserIndex).flags.CaptchaCode(0) = 0
+        UserList(UserIndex).ConnIDValida = True
+        UserList(UserIndex).ConnID = NuevoSock
+        
+        Call AgregaSlotSock(NuevoSock, UserIndex)
+    Else
+        str = modProtocol.PrepareMessageErrorMsg("El servidor se encuentra lleno en este momento. Disculpe las molestias ocasionadas.")
+        
+        ReDim Preserve data(Len(str) - 1) As Byte
+        
+        data = StrConv(str, vbFromUnicode)
+        
+        Call send(ByVal NuevoSock, data(0), ByVal UBound(data()) + 1, ByVal 0)
+        Call WSApiCloseSocket(NuevoSock, UserIndex)
+    End If
+End Sub
+
+
 Sub DarCuerpo(ByVal UserIndex As Integer)
 '*************************************************
 'Author: Nacho (Integer)
@@ -243,7 +341,7 @@ With UserList(UserIndex)
     End If
     
     If UserList(UserIndex).flags.UserLogged Then
-        Call LogCheating("El usuario " & UserList(UserIndex).Name & " ha intentado crear a " & Name & " desde la IP " & UserList(UserIndex).ip)
+        Call LogCheating("El usuario " & UserList(UserIndex).Name & " ha intentado crear a " & Name & " desde la IP " & UserList(UserIndex).IP)
         
         'Kick player ( and leave character inside :D )!
         Call CloseSocketSL(UserIndex)
@@ -278,7 +376,7 @@ With UserList(UserIndex)
     End If
     
     If Not ValidarCabeza(UserRaza, UserSexo, Head) Then
-        Call LogCheating("El usuario " & Name & " ha seleccionado la cabeza " & Head & " desde la IP " & .ip)
+        Call LogCheating("El usuario " & Name & " ha seleccionado la cabeza " & Head & " desde la IP " & .IP)
         
         Call WriteErrorMsg(UserIndex, "Cabeza inválida, elija una cabeza seleccionable.")
         Exit Sub
@@ -502,9 +600,6 @@ Call ResetFacciones(UserIndex)
 Call ConnectUser(UserIndex, Name, Password, SerialHD)
   
 End Sub
-
-#If SocketType = 1 Then
-
 Sub CloseSocket(ByVal UserIndex As Integer)
 '***************************************************
 'Author: Unknownn
@@ -515,7 +610,7 @@ On Error GoTo ErrHandler
     
     With UserList(UserIndex)
         
-        Call modSecurityIp.IpRestarConexion(GetLongIp(.ip))
+        Call modSecurityIp.IpRestarConexion(.IPLong)
         
         If .ConnID <> -1 Then
             Call CloseSocketSL(UserIndex)
@@ -585,7 +680,7 @@ ErrHandler:
         Loop
     End If
 
-    Call LogError("CloseSocket - Error = " & Err.Number & " - Descripción = " & Err.description & " - UserIndex = " & UserIndex)
+    Call LogError("CloseSocket - Error = " & err.Number & " - Descripción = " & err.Description & " - UserIndex = " & UserIndex)
 End Sub
 
 '[Alejo-21-5]: Cierra un socket sin limpiar el slot
@@ -596,15 +691,17 @@ Sub CloseSocketSL(ByVal UserIndex As Integer)
 '
 '***************************************************
 
-#If SocketType = 1 Then
 
 If UserList(UserIndex).ConnID <> -1 And UserList(UserIndex).ConnIDValida Then
+#If SocketType = 1 Then
     Call BorraSlotSock(UserList(UserIndex).ConnID)
-    Call WSApiCloseSocket(UserList(UserIndex).ConnID)
+    Call WSApiCloseSocket(UserList(UserIndex).ConnID, UserIndex)
+#ElseIf SocketType = 2 Then
+    frmMain.wskClient(UserIndex).Close
+#End If
     UserList(UserIndex).ConnIDValida = False
 End If
 
-#End If
 End Sub
 
 ''
@@ -620,9 +717,9 @@ Public Function EnviarDatosASlot(ByVal UserIndex As Integer, ByRef Datos As Stri
 'Last Modified By: Lucas Tavolaro Ortiz (Tavo)
 'Now it uses the clsByteQueue class and don`t make a FIFO Queue of String
 '***************************************************
-On Error GoTo Err
+On Error GoTo err
 
-#If SocketType = 1 Then '**********************************************
+#If SocketType = 1 Or SocketType = 2 Then '**********************************************
     
     Dim ret As Long
     
@@ -637,11 +734,11 @@ On Error GoTo Err
 
 Exit Function
     
-Err:
+err:
     Call LogError("TCP::EnviarDatosASlot. UI/ConnId/Datos: " & UserIndex & "/" & IIf(UserIndex = 0, "nil", UserList(UserIndex).ConnID) & "/" & Datos)
 
 End Function
-Function EstaPCarea(index As Integer, Index2 As Integer) As Boolean
+Function EstaPCarea(Index As Integer, Index2 As Integer) As Boolean
 '***************************************************
 'Author: Unknownn
 'Last Modification: -
@@ -649,10 +746,10 @@ Function EstaPCarea(index As Integer, Index2 As Integer) As Boolean
 '***************************************************
 
 Dim X As Integer, Y As Integer
-For Y = UserList(index).Pos.Y - MinYBorder + 1 To UserList(index).Pos.Y + MinYBorder - 1
-        For X = UserList(index).Pos.X - MinXBorder + 1 To UserList(index).Pos.X + MinXBorder - 1
+For Y = UserList(Index).Pos.Y - MinYBorder + 1 To UserList(Index).Pos.Y + MinYBorder - 1
+        For X = UserList(Index).Pos.X - MinXBorder + 1 To UserList(Index).Pos.X + MinXBorder - 1
 
-            If MapData(UserList(index).Pos.Map, X, Y).UserIndex = Index2 Then
+            If MapData(UserList(Index).Pos.Map, X, Y).UserIndex = Index2 Then
                 EstaPCarea = True
                 Exit Function
             End If
@@ -727,7 +824,7 @@ ConnectUser = False ' Por defecto, es FALSE
 With UserList(UserIndex)
 
     If .flags.UserLogged Then
-        Call LogCheating("El usuario " & .Name & " ha intentado loguear a " & Name & " desde la IP " & .ip)
+        Call LogCheating("El usuario " & .Name & " ha intentado loguear a " & Name & " desde la IP " & .IP)
         'Kick player ( and leave character inside :D )!
         Call CloseSocketSL(UserIndex)
         Call Cerrar_Usuario(UserIndex)
@@ -756,7 +853,7 @@ With UserList(UserIndex)
     
     '¿Este IP ya esta conectado?
     If iniMultiLogin = 0 Then
-        If CheckForSameIP(UserIndex, .ip) = True Then
+        If CheckForSameIP(UserIndex, .IP) = True Then
             Call WriteErrorMsg(UserIndex, "No es posible usar más de un personaje al mismo tiempo.")
             Call FlushBuffer(UserIndex)
             Call CloseSocket(UserIndex)
@@ -808,17 +905,17 @@ With UserList(UserIndex)
     'Vemos que clase de user es (se lo usa para setear los privilegios al loguear el PJ)
     If EsAdmin(Name) Then
         .flags.Privilegios = .flags.Privilegios Or PlayerType.Admin
-        Call LogGM(Name, "Se conecto con IP: " & .ip)
+        Call LogGM(Name, "Se conecto con IP: " & .IP)
     ElseIf EsDios(Name) Then
         .flags.Privilegios = .flags.Privilegios Or PlayerType.Dios
-        Call LogGM(Name, "Se conecto con IP: " & .ip)
+        Call LogGM(Name, "Se conecto con IP: " & .IP)
     ElseIf EsSemiDios(Name) Then
         .flags.Privilegios = .flags.Privilegios Or PlayerType.SemiDios
-        Call LogGM(Name, "Se conecto con IP: " & .ip)
+        Call LogGM(Name, "Se conecto con IP: " & .IP)
         .flags.PrivEspecial = EsGmEspecial(Name) ' 0.13.3
     ElseIf EsConsejero(Name) Then
         .flags.Privilegios = .flags.Privilegios Or PlayerType.Consejero
-        Call LogGM(Name, "Se conecto con IP: " & .ip)
+        Call LogGM(Name, "Se conecto con IP: " & .IP)
     Else
         .flags.Privilegios = .flags.Privilegios Or PlayerType.User
         .flags.AdminPerseguible = True
@@ -1304,7 +1401,7 @@ Sub ResetBasicUserInfo(ByVal UserIndex As Integer)
         .Pos.Map = 0
         .Pos.X = 0
         .Pos.Y = 0
-        .ip = vbNullString
+        .IP = vbNullString
         .clase = 0
         .Genero = 0
         .Hogar = 0
@@ -1679,7 +1776,7 @@ ErrHandler:
     Dim UserName As String
     If UserIndex > 0 Then UserName = UserList(UserIndex).Name
 
-    Call LogError("Error en CloseUser. Número " & Err.Number & " Descripción: " & Err.description & _
+    Call LogError("Error en CloseUser. Número " & err.Number & " Descripción: " & err.Description & _
         ".User: " & UserName & "(" & UserIndex & "). Map: " & Map)
 
 End Sub
@@ -1692,22 +1789,27 @@ Sub ReloadSokcet()
 '***************************************************
 
 On Error GoTo ErrHandler
-#If SocketType = 1 Then
+#If SocketType = 1 Or SocketType = 2 Then
 
     Call LogApiSock("ReloadSokcet() " & NumUsers & " " & LastUser & " " & iniMaxUsuarios)
     
     If NumUsers <= 0 Then
         Call WSApiReiniciarSockets
     Else
-       Call apiclosesocket(SockListen)
-       SockListen = ListenForConnect(iniPuerto, hWndMsg, "")
+        #If SocketType = 1 Then
+            Call apiclosesocket(SockListen)
+            SockListen = ListenForConnect(iniPuerto, hWndMsg, "")
+        #ElseIf SocketType = 2 Then
+            frmMain.wskListen.Close
+            frmMain.wskListen.LocalPort = iniPuerto
+            frmMain.wskListen.listen
+        #End If
     End If
-
 #End If
 
 Exit Sub
 ErrHandler:
-    Call LogError("Error en CheckSocketState " & Err.Number & ": " & Err.description)
+    Call LogError("Error en CheckSocketState " & err.Number & ": " & err.Description)
 
 End Sub
 

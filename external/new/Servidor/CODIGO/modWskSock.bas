@@ -396,26 +396,7 @@ Sub EndWinsock()
     WSAStartedUp = False
 End Sub
 
-Public Function GetAscIP(ByVal inn As Long) As String
-    #If Win32 Then
-        Dim nStr&
-    #Else
-        Dim nStr%
-    #End If
-    Dim lpStr&
-    Dim retString$
-    retString = String(32, 0)
-    lpStr = inet_ntoa(inn)
-    If lpStr Then
-        nStr = lstrlen(lpStr)
-        If nStr > 32 Then nStr = 32
-        MemCopy ByVal retString, ByVal lpStr, nStr
-        retString = Left$(retString, nStr)
-        GetAscIP = retString
-    Else
-        GetAscIP = "255.255.255.255"
-    End If
-End Function
+
 
 
 

@@ -1018,7 +1018,7 @@ proximo:
     Call SendData(SendTarget.ToAll, 0, PrepareMessageConsoleMsg("Servidor> Elecciones revisadas.", FontTypeNames.FONTTYPE_SERVER))
 Exit Sub
 errh:
-    Call LogError("modGuilds.v_RutinaElecciones():" & Err.description)
+    Call LogError("modGuilds.v_RutinaElecciones():" & err.Description)
     Resume proximo
 End Sub
 
@@ -1852,7 +1852,7 @@ On Error Resume Next
         ' Fuerzo el borrado de la lista, lo deberia hacer el programa que borra pjs..
         Call guilds(GI).RemoveMemberName(Personaje) ' 0.13.5
     Else
-        Call LogError("[" & Err.Number & "] " & Err.description & " En la rutina SendDetallesPersonaje, por el usuario " & UserList(UserIndex).Name & " (" & UserIndex & " ), pidiendo información sobre el personaje " & Personaje)
+        Call LogError("[" & err.Number & "] " & err.Description & " En la rutina SendDetallesPersonaje, por el usuario " & UserList(UserIndex).Name & " (" & UserIndex & " ), pidiendo información sobre el personaje " & Personaje)
     End If
 End Sub
 

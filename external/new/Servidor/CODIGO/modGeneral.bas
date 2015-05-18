@@ -160,7 +160,7 @@ On Error GoTo ErrHandler
     Exit Sub
 
 ErrHandler:
-    Call LogError("Error producido en el sub LimpiarMundo: " & Err.description)
+    Call LogError("Error producido en el sub LimpiarMundo: " & err.Description)
 End Sub
 
 Sub EnviarSpawnList(ByVal UserIndex As Integer)
@@ -465,7 +465,9 @@ On Error Resume Next
     iniMaxUsuarios = 0
 
     ' Initialize classes
+#If SocketType = 1 Then
     Set WSAPISock2Usr = New Collection
+#End If
     modProtocol.InitAuxiliarBuffer
     
     Set aClon = New clsAntiMassClon
@@ -555,7 +557,14 @@ On Error Resume Next
     End If
     
     DoEvents
-    
+#ElseIf SocketType = 2 Then 'WINSOCKETS
+    frmMain.wskListen.Close
+    frmMain.wskListen.LocalPort = iniPuerto
+    frmMain.wskListen.listen
+    Dim i As Integer
+    For i = 1 To iniMaxUsuarios
+        Load frmMain.wskClient(i)
+    Next i
 #End If
     
     If frmMain.Visible Then frmMain.txStatus.Text = "Escuchando conexiones entrantes ..."
@@ -692,7 +701,7 @@ ErrHandler:
 End Sub
 
 
-Public Sub LogIndex(ByVal index As Integer, ByVal desc As String)
+Public Sub LogIndex(ByVal Index As Integer, ByVal desc As String)
 '***************************************************
 'Author: Unknownn
 'Last Modification: -
@@ -703,7 +712,7 @@ On Error GoTo ErrHandler
 
     Dim nfile As Integer
     nfile = FreeFile ' obtenemos un canal
-    Open App.Path & "\logs\" & index & ".log" For Append Shared As #nfile
+    Open App.Path & "\logs\" & Index & ".log" For Append Shared As #nfile
     Print #nfile, Date & " " & time & " " & desc
     Close #nfile
     
@@ -1020,14 +1029,17 @@ On Error Resume Next
     
     Dim LoopC As Long
   
-If SocketType = 1 Then
+#If SocketType = 1 Then
 
     'Cierra el socket de escucha
     If SockListen >= 0 Then Call apiclosesocket(SockListen)
     
     'Inicia el socket de escucha
     SockListen = ListenForConnect(iniPuerto, hWndMsg, "")
-
+#ElseIf SocketType = 2 Then
+    frmMain.wskListen.Close
+    frmMain.wskListen.LocalPort = iniPuerto
+    frmMain.wskListen.listen
 #End If
 
     For LoopC = 1 To iniMaxUsuarios
@@ -1668,7 +1680,7 @@ On Error GoTo ErrHandler
 Exit Sub
 
 ErrHandler:
-    Call LogError("Error en PasarSegundo. Err: " & Err.description & " - " & Err.Number & " - UserIndex: " & i)
+    Call LogError("Error en PasarSegundo. Err: " & err.Description & " - " & err.Number & " - UserIndex: " & i)
     Resume Next
 End Sub
  
