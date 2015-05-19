@@ -37,7 +37,6 @@ Public usaParticulas As Boolean ' movelo donde lo creas correcto.
 Public iplst As String
 Public bFogata As Boolean
 Public bLluvia() As Byte ' Array para determinar si
-Public lFrameTimer As Long 'debemos mostrar la animacion de la lluvia
 
 Public Function RandomNumber(ByVal LowerBound As Long, ByVal UpperBound As Long) As Long
     'Initialize randomizer
@@ -207,7 +206,7 @@ Sub SaveConfigInit(Optional Modo As Byte = 0)
     If Modo = 1 Then
         'Grabamos los datos del usuario
         If (frmConnect.chkRecordar.Checked = True) Then
-            If ClientConfigInit.Nombre <> frmConnect.txtNombre.Text Then ClientConfigInit.Nombre = frmConnect.txtNombre.Text
+            If ClientConfigInit.nombre <> frmConnect.txtNombre.Text Then ClientConfigInit.nombre = frmConnect.txtNombre.Text
             If ClientConfigInit.Password <> frmConnect.txtPasswd.Text Then ClientConfigInit.Password = frmConnect.txtPasswd.Text
             ClientConfigInit.Recordar = 1
         ElseIf (frmConnect.chkRecordar.Checked = False) Then
@@ -328,9 +327,9 @@ Sub SetConnected()
     
     Call SaveConfigInit(1)
     
-    'Unload the connect form
-    Unload frmCrearPersonaje
-    Unload frmConnect
+    'Los dejo cargados en memoria pero los hago invisibles
+    frmCrearPersonaje.Visible = False
+    frmConnect.Visible = False
     
     frmMain.lblName.Caption = UserName
     'Load main form
@@ -342,7 +341,6 @@ Sub SetConnected()
     Call frmMain.ControlSM(eSMType.mSpells, False)
     Call frmMain.ControlSM(eSMType.mWork, False)
     
-    FPSFLAG = True
 
 End Sub
 
@@ -882,13 +880,15 @@ Sub Main()
     Dialogos.Font = frmMain.Font
     DialogosClanes.Font = frmMain.Font
     
-    lFrameTimer = GetTickCount
     TechosTransp = 200 ' GSZAO
     
     ' Load the form for screenshots
     Call Load(frmScreenshots)
 
     Do While prgRun
+#If PerformanceTest = 1 Then
+        Call Performance_Start(1)
+#End If
         'Sólo dibujamos si la ventana no está minimizada
         If frmMain.WindowState <> 1 And frmMain.Visible Then
             Call ShowNextFrame(frmMain.Top, frmMain.Left, frmMain.MouseX, frmMain.MouseY)
@@ -897,18 +897,21 @@ Sub Main()
             Call RenderSounds
             
             Call CheckKeys
+            
         End If
-        
-        'FPS Counter - mostramos las FPS
-        If GetTickCount - lFrameTimer >= 1000 Then
-            If FPSFLAG Then frmMain.lblFPS.Caption = modTileEngine.FPS
-            DrawText 0, 0, "FPS: " & modTileEngine.FPS, RGB(255, 255, 255)
-            lFrameTimer = GetTickCount
-        End If
-        
+#If PerformanceTest = 1 Then
+        Call Performance_End(1)
+#End If
+#If PerformanceTest = 1 Then
+        Call Performance_Start(19)
+#End If
+
         ' If there is anything to be sent, we send it
         Call FlushBuffer
         DoEvents
+#If PerformanceTest = 1 Then
+        Call Performance_End(19)
+#End If
     Loop
    
     Call CloseClient
@@ -942,7 +945,7 @@ Private Sub LoadInitialConfig() ' 0.13.3
     frmCargando.cCargando.Value = frmCargando.cCargando.Value + 1 ' 2
     
     With frmConnect
-        .txtNombre = ClientConfigInit.Nombre
+        .txtNombre = ClientConfigInit.nombre
         .txtNombre.SelStart = 0
         .txtNombre.SelLength = Len(.txtNombre)
     End With
@@ -1053,7 +1056,7 @@ Private Sub LoadInitialConfig() ' 0.13.3
     Call AddtoRichTextBox(frmCargando.status, "Iniciando Motor de Inventario... ", 255, 255, 255, True, False, True)
     
     'Inicializamos el inventario gráfico
-    Call Inventario.Initialize(DirectD3D8, frmMain.PicInv, MAX_INVENTORY_SLOTS, , , , , , , , True)
+    Call Inventario.Initialize(DirectD3D8, frmMain.picInv, MAX_INVENTORY_SLOTS, , , , , , , , True)
     
     frmCargando.cCargando.Value = frmCargando.cCargando.Value + 1 ' 15
     
@@ -1438,7 +1441,7 @@ End Function
 Public Function getCharIndexByName(ByVal Name As String) As Integer
 Dim i As Long
 For i = 1 To LastChar
-    If CharList(i).Nombre = Name Then
+    If CharList(i).nombre = Name Then
         getCharIndexByName = i
         Exit Function
     End If

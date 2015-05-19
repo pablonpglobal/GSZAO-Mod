@@ -672,7 +672,6 @@ Public UserDescansar As Boolean
 Public tipf As String
 Public PrimeraVez As Boolean
 Public bShowTutorial As Boolean
-Public FPSFLAG As Boolean
 Public pausa As Boolean
 Public UserParalizado As Boolean
 Public UserNavegando As Boolean

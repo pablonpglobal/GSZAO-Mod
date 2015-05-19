@@ -119,6 +119,11 @@ Public Sub ParseUserCommand(ByVal RawCommand As String)
         ' Comando normal
         Select Case Comando
             
+            #If PerformanceTest = 1 Then
+            Case "/RESETPERFORMANCE"
+                Call Performance_Reset
+            #End If
+            
             Case "/TORNEO"
                 Call WritePedirInfoTorneo
                 

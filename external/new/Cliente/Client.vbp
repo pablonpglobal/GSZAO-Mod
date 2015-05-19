@@ -122,7 +122,7 @@ ServerSupportFiles=0
 VersionCompanyName="http://www.gs-zone.org"
 VersionLegalCopyright="Argentum idea Pablo Ignacio Marquez - Copyright 2003    Code pieces are copyright of their respective authors."
 VersionProductName="GS-Z Argentum Online Mod"
-CondComp="Testeo = 1 : ConAlfaB = 1 : ConMenuseConextuales = 0"
+CondComp="PerformanceTest = 1 : Testeo = 1 : ConAlfaB = 1 : ConMenuseConextuales = 0"
 CompilationType=0
 OptimizationType=2
 FavorPentiumPro(tm)=0

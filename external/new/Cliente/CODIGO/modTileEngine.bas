@@ -263,7 +263,7 @@ Public Type Char
     Newbie As Byte ' GSZAO
     bType As Byte ' GSZAO
     
-    Nombre As String
+    nombre As String
     
     scrollDirectionX As Integer
     scrollDirectionY As Integer
@@ -525,6 +525,87 @@ Private Declare Function GetTextExtentPoint32 Lib "gdi32" Alias "GetTextExtentPo
 Private Declare Function SetPixel Lib "gdi32" (ByVal hdc As Long, ByVal X As Long, ByVal Y As Long, ByVal crColor As Long) As Long
 Private Declare Function GetPixel Lib "gdi32" (ByVal hdc As Long, ByVal X As Long, ByVal Y As Long) As Long
 
+
+#If PerformanceTest = 1 Then
+Public listPerformance(20) As tPerformance
+Public Type tPerformance
+    Using As Boolean
+    Max As Single
+    Min As Single
+    Total As Double
+    Count As Long
+    Last As Long
+    
+    End_Time As Currency
+    Timer_Freq As Currency
+End Type
+Public Sub Performance_DrawResults(ByVal X As Integer, ByVal Y As Integer)
+    Dim i As Long
+    Dim Count As Long
+    
+    Call DrawText(X, Y, "P°:(MAX)-(MIN)-(AVG) - FPS: " & FramesPerSecCounter & " - (/RESETPERFORMANCE)", D3DColorXRGB(128, 255, 128))
+    For i = 0 To 19
+        With listPerformance(i)
+            If .Using Then
+                Count = Count + 1
+                If .Count > 0 Then
+                Call DrawText(X, Y + (Count * 15), "P" & i & ": " & .Max & "ms" & " - " & .Min & "ms" & " - " & IIf(.Count = 0, 0, Round(.Total / .Count, 2)) & "ms", D3DColorXRGB(128, 255, 128))
+                End If
+            End If
+        End With
+    Next i
+End Sub
+Public Sub Performance_Reset()
+    Dim i As Long
+    For i = 0 To 19
+        With listPerformance(i)
+            .Max = 0
+            .Min = 0
+            .Total = 0
+            .Count = 0
+            .Last = 0
+        End With
+    Next i
+End Sub
+Public Sub Performance_Start(ByVal numTick As Integer)
+    listPerformance(numTick).Using = True
+    Call Performance_ElapsedTime(listPerformance(numTick).End_Time, listPerformance(numTick).Timer_Freq)
+End Sub
+Public Sub Performance_End(ByVal numTick As Integer)
+    With listPerformance(numTick)
+        .Last = Round(Performance_ElapsedTime(.End_Time, .Timer_Freq), 2)
+        
+        .Count = .Count + 1
+        .Total = .Total + .Last
+        
+        If .Last > .Max Then .Max = .Last
+        If .Last < .Min Or .Min = 0 Then .Min = .Last
+    End With
+End Sub
+Public Function Performance_ElapsedTime(ByRef End_Time As Currency, ByRef Timer_Freq As Currency) As Single
+'**************************************************************
+'Author: Aaron Perkins
+'Last Modify Date: 10/07/2002
+'Gets the time that past since the last call
+'**************************************************************
+    Dim start_time As Currency
+
+    'Get the timer frequency
+    If Timer_Freq = 0 Then
+        QueryPerformanceFrequency Timer_Freq
+    End If
+
+    'Get current time
+    Call QueryPerformanceCounter(start_time)
+
+    'Calculate elapsed time
+    Performance_ElapsedTime = (start_time - End_Time) / Timer_Freq * 1000
+
+    'Get next end time
+    Call QueryPerformanceCounter(End_Time)
+End Function
+#End If
+
 Sub CargarCabezas()
     Dim N As Integer
     Dim i As Long
@@ -763,7 +844,7 @@ Sub ResetCharInfo(ByVal CharIndex As Integer)
                
         .Moving = 0
         .muerto = False
-        .Nombre = vbNullString
+        .nombre = vbNullString
         .pie = False
         .Pos.X = 0
         .Pos.Y = 0
@@ -2092,6 +2173,9 @@ Sub ShowNextFrame(ByVal DisplayFormTop As Integer, ByVal DisplayFormLeft As Inte
 'Last Modification: 05/09/2012 - ^[GS]^
 'Updates the game's model and renders everything.
 '***************************************************
+#If PerformanceTest = 1 Then
+        Call Performance_Start(2)
+#End If
     Static OffsetCounterX As Single
     Static OffsetCounterY As Single
     
@@ -2141,6 +2225,11 @@ Sub ShowNextFrame(ByVal DisplayFormTop As Integer, ByVal DisplayFormLeft As Inte
             If modAmbiente.Fade Then Ambient_Fade
         End If
         
+
+#If PerformanceTest = 1 Then
+        Call Performance_End(2)
+        Call Performance_Start(3)
+#End If
         '****** Update screen ******
         If UserCiego Then
             Call CleanViewPort
@@ -2148,11 +2237,22 @@ Sub ShowNextFrame(ByVal DisplayFormTop As Integer, ByVal DisplayFormLeft As Inte
             Call Engine_UpdateTransp ' GSZAO
             Call RenderScreen(UserPos.X - AddtoUserPos.X, UserPos.Y - AddtoUserPos.Y, OffsetCounterX, OffsetCounterY)
         End If
+#If PerformanceTest = 1 Then
+        Call Performance_End(3)
+        Call Performance_Start(4)
+#End If
 
         If Dialogos.NeedRender Then Call Dialogos.Render ' GSZAO
         If Cartel Then Call DibujarCartel ' GSZAO
         If DialogosClanes.Activo Then Call DialogosClanes.Draw ' GSZAO
         
+        #If PerformanceTest = 1 Then
+        Call Performance_DrawResults(10, 10)
+        #End If
+#If PerformanceTest = 1 Then
+        Call Performance_End(4)
+        Call Performance_Start(5)
+#End If
             DirectDevice.EndScene
         DirectDevice.Present ByVal 0, ByVal 0, 0, ByVal 0
         
@@ -2165,11 +2265,15 @@ Sub ShowNextFrame(ByVal DisplayFormTop As Integer, ByVal DisplayFormLeft As Inte
             End If
         End If
         
-        'FPS update - Dunkansdk
+        'FPS update
         If fpsLastCheck + 1000 < GetTickCount Then
-            FramesPerSecCounter = 1
             FPS = FramesPerSecCounter
+            FramesPerSecCounter = 1
             fpsLastCheck = GetTickCount
+            frmMain.lblFPS.Caption = FPS
+#If PerformanceTest Then
+            Performance_Reset
+#End If
         Else
             FramesPerSecCounter = FramesPerSecCounter + 1
         End If
@@ -2177,9 +2281,10 @@ Sub ShowNextFrame(ByVal DisplayFormTop As Integer, ByVal DisplayFormLeft As Inte
         'Get timing info
         timerElapsedTime = GetElapsedTime()
         timerTicksPerFrame = timerElapsedTime * engineBaseSpeed
-        FPS = 1000 / timerElapsedTime
         'ParticleTimer = timerElapsedTime * 0.05 GDK: Esto no se usa.
-        
+#If PerformanceTest = 1 Then
+        Call Performance_End(5)
+#End If
     End If
 End Sub
 
@@ -2190,22 +2295,22 @@ Private Function GetElapsedTime() As Single
 'Gets the time that past since the last call
 '**************************************************************
     Dim start_time As Currency
-    Static end_time As Currency
-    Static timer_freq As Currency
+    Static End_Time As Currency
+    Static Timer_Freq As Currency
 
     'Get the timer frequency
-    If timer_freq = 0 Then
-        QueryPerformanceFrequency timer_freq
+    If Timer_Freq = 0 Then
+        QueryPerformanceFrequency Timer_Freq
     End If
     
     'Get current time
     Call QueryPerformanceCounter(start_time)
     
     'Calculate elapsed time
-    GetElapsedTime = (start_time - end_time) / timer_freq * 1000
+    GetElapsedTime = (start_time - End_Time) / Timer_Freq * 1000
     
     'Get next end time
-    Call QueryPerformanceCounter(end_time)
+    Call QueryPerformanceCounter(End_Time)
 End Function
 
 Private Sub CharRender(ByVal CharIndex As Long, ByVal PixelOffsetX As Integer, ByVal PixelOffsetY As Integer, ByRef light_value() As Long)
@@ -2319,9 +2424,9 @@ Private Sub CharRender(ByVal CharIndex As Long, ByVal PixelOffsetX As Integer, B
             End If
             
             'Draw name over head
-            If LenB(.Nombre) > 0 Then
+            If LenB(.nombre) > 0 Then
                 If Nombres And (CfgSiempreNombres = True Or (esGM(UserCharIndex) Or Abs(MouseTileX - .Pos.X) < 2 And (Abs(MouseTileY - .Pos.Y)) < 2)) Then
-                    Pos = getTagPosition(.Nombre)
+                    Pos = getTagPosition(.nombre)
                     'Pos = InStr(.Nombre, "<")
                     'If Pos = 0 Then Pos = Len(.Nombre) + 2
         
@@ -2346,11 +2451,11 @@ Private Sub CharRender(ByVal CharIndex As Long, ByVal PixelOffsetX As Integer, B
                     End If
         
                     'Nick
-                    line = Left$(.Nombre, Pos - 2)
+                    line = Left$(.nombre, Pos - 2)
                     Call DrawText(PixelOffsetX - (Len(line) * 6 / 2) + 14, PixelOffsetY + 30, line, color)
         
                     'Clan
-                    line = mid$(.Nombre, Pos)
+                    line = mid$(.nombre, Pos)
                     Call DrawText(PixelOffsetX - (Len(line) * 6 / 2) + 28, PixelOffsetY + 45, line, color)
                 End If
             End If
